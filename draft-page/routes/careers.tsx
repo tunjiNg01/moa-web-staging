@@ -1,0 +1,7 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowUpRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { SiteShell, PageHeading, ContactBand } from '@/components/site-shell';
+import { pageHead, residential } from '@/lib/site-content';
+export const Route=createFileRoute('/careers')({head:()=>pageHead('Careers','Explore a future in structural engineering with MO&A and express your interest in joining our consultancy.'),component:Careers});
+function Careers(){return <SiteShell><PageHeading label="Careers at MO&A" title="Bring your thinking. Build your future." description="Good engineering starts with curious minds. If you care about the built environment and enjoy finding thoughtful solutions, we’d like to hear from you."/><section className="section"><div className="container split-content"><img src={residential} alt="Modern residential architecture and shared courtyard" width={1024} height={1024} loading="lazy"/><div className="prose"><div className="kicker">Make your next move</div><h2>A shared ambition.<br/>A different perspective.</h2><p>Whether you’re taking your first steps into engineering or bringing an established perspective, your curiosity and ideas matter.</p><p>We welcome expressions of interest from structural engineers, design professionals and emerging talent.</p><Button variant="hero" asChild><Link to="/contact">Express your interest <ArrowUpRight/></Link></Button></div></div></section><ContactBand/></SiteShell>}

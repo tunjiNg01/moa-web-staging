@@ -1,0 +1,3 @@
+export function TeamSection() {
+ return <section className="section"><div className="container"><div className="section-heading"><div><div className="kicker">Our team</div><h2>The people behind<br/>the thinking.</h2></div><p className="team-intro">Good engineering is a shared effort. Meet the people who bring their perspective, care and technical thinking to MO&A.</p></div><div className="team-coming-soon"><span className="team-monogram" aria-hidden="true">MO&A</span><div><h3>Meet the MO&A team</h3><p>Individual team profiles will be added soon.</p></div></div></div></section>;
+}

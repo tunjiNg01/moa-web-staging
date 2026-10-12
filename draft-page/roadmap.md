@@ -1,0 +1,12 @@
+# Website roadmap
+- [x] Build the six requested pages with shared navigation and MO&A branding.
+- [x] Add architectural imagery, project filtering and enquiry preparation.
+- [x] Verify page navigation, interactions and display.
+- [x] Add dedicated project case-study pages and replace project pop-ups with links.
+- [x] Increase navigation typography and add the About us Team section.
+- [x] Check updated pages, links and layouts.
+- [ ] Add a home video background and transparent navigation.
+- [ ] Add Services dropdown and dedicated service pages with process, related project and contact sections.
+- [ ] Verify video, service navigation and pages.- [ ] Finish home video background and transparent navigation.
+- [ ] Add Services dropdown and dedicated service pages with hero, process, related project and contact sections.
+- [ ] Verify video, service navigation and pages.
