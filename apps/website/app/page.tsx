@@ -1,8 +1,8 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ArrowDown } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@repo/ui";
+import { HeroParallaxSection } from "@/components/hero-parallax-section";
 import { ProjectGallery } from "@/components/project-gallery";
 import { ContactBand } from "@/components/contact-band";
 import { services } from "@/lib/site-content";
@@ -10,106 +10,65 @@ import { services } from "@/lib/site-content";
 export default function HomePage() {
   return (
     <div>
-      {/* Hero Section with Looping Background Video */}
-      <section className="relative min-h-[640px] h-screen max-h-[920px] overflow-hidden bg-ink text-white flex items-center">
-        {/* Looping Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          poster="/images/engineering-hero.jpg"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        >
-          <source src="/videos/hero-background.webm" type="video/webm" />
-          {/* Fallback image */}
-          <Image
-            src="/images/engineering-hero.jpg"
-            alt="Sculptural concrete and glass building with a sweeping cantilevered roof"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </video>
+      {/* Hero Section with Parallax Background Video */}
+      <HeroParallaxSection />
 
-        {/* Cinematic Multi-Layer Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-black/30 z-10" />
-        <div className="absolute inset-0 bg-black/25 z-10" />
+      {/* Intro Manifesto / Company Overview Section */}
+      <section className="py-20 sm:py-24 border-b border-border bg-background">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Company Background & Regional Expansion */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="space-y-2">
+              <span className="text-primary text-xs uppercase tracking-widest font-bold block">
+                Engineering &amp; Development Consultancy
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-tight text-foreground">
+                Behind every great structure,
+                <br />
+                there’s trusted expertise.
+              </h2>
+            </div>
 
-        {/* Hero Content */}
-        <div className="relative z-20 max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-center pt-24 sm:pt-28 pb-16">
-          <div className="flex items-center gap-3 text-xs uppercase tracking-widest font-semibold text-white/90 mb-6 before:content-[''] before:h-px before:w-7 before:bg-white/70">
-            MO&A · Engineering with purpose
+            <p className="text-base sm:text-lg text-foreground/90 leading-relaxed font-normal pt-2">
+              <strong className="font-semibold text-foreground">Morgan Omonitan &amp; Abe Ltd – MO&amp;A</strong>, is an engineering &amp; development consulting firm in Nigeria, with recent expansion to Ghana in West Africa.
+            </p>
+
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Founded in 1972, <strong className="font-semibold text-foreground">MO&amp;A</strong> has over 40 years of experience and expertise in providing integrated engineering &amp; development consulting services such as civil &amp; structural engineering, project management and independent expert services to the private &amp; public sectors. <strong className="font-semibold text-foreground">MO&amp;A</strong> has built a legacy of several successfully executed projects and partnerships with clients and stakeholders.
+            </p>
+
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              <strong className="font-semibold text-foreground">MO&amp;A</strong> continues to evolve and expand to accomplish ground breaking projects and developments in Nigeria and within the region.{" "}
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-1 font-semibold text-primary hover:underline ml-1"
+              >
+                Read More <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </p>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-white max-w-3xl leading-[1.05]">
-            Structural engineering.
-            <br />
-            Lasting impact.
-          </h1>
+          {/* Right Column: Leadership Quote Card & Download Brochure CTA */}
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            <div className="bg-[#374151] text-white p-7 sm:p-8 rounded-sm shadow-md border border-slate-700/60 flex flex-col justify-between">
+              <p className="text-sm sm:text-base leading-relaxed italic text-slate-100 font-light">
+                &ldquo;A diversity of Stakeholders from all over the world, including Governments, Multinationals, Bilateral Agencies, Public and Private Sector Businesses and Individuals engage us to provide specialist services for their major engineering and construction projects. We are proud of our position as one of Nigeria&apos;s most knowledgeable and respected engineering consultancy firms.&rdquo;
+              </p>
+              <div className="mt-6 pt-4 border-t border-slate-600/80">
+                <span className="text-xs uppercase tracking-wider font-semibold text-slate-300 block">
+                  CEO and Managing Director
+                </span>
+              </div>
+            </div>
 
-          <p className="mt-6 text-base sm:text-lg text-white/90 max-w-md leading-relaxed font-normal">
-            We turn bold visions into sound structures.
-            <br />
-            Thoughtful design. Technical excellence.
-            <br />
-            A stronger built environment.
-          </p>
-
-          <div className="mt-8">
             <Button
               asChild
               size="lg"
-              className="bg-primary text-white hover:bg-primary/90 font-semibold px-6 shadow-lg"
+              className="w-full bg-primary hover:bg-primary/90 text-white font-semibold uppercase tracking-wider text-xs sm:text-sm py-6 rounded-sm shadow-md transition-all active:scale-[0.99]"
             >
-              <Link href="/projects" className="inline-flex items-center gap-2">
-                Explore our work <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="absolute bottom-8 left-6 right-6 max-w-7xl mx-auto flex items-center justify-between text-xs uppercase tracking-widest text-white/60">
-            <span className="flex items-center gap-2.5">
-              <ArrowDown className="h-3.5 w-3.5 text-primary" /> A foundation for
-              what’s next
-            </span>
-            <span className="hidden sm:inline-block border-b border-white/20 pb-1 font-mono">
-              01 — 03
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Intro Manifesto Section */}
-      <section className="py-20 sm:py-24 border-b border-border bg-background">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-24 items-start">
-          <div>
-            <span className="text-primary text-xs uppercase tracking-widest font-bold block mb-4">
-              Built on expertise. Driven by possibility.
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-tight">
-              Behind every great building,
-              <br />
-              there’s great engineering.
-            </h2>
-          </div>
-
-          <div className="space-y-6">
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              At MO&A, we see more than structures. We see the people, ideas and
-              ambitions they support. We bring clarity to complexity, creating
-              engineering solutions that are considered, practical and built to
-              last.
-            </p>
-            <Button
-              asChild
-              variant="outline"
-              className="font-semibold border-border hover:bg-secondary"
-            >
-              <Link href="/about" className="inline-flex items-center gap-2">
-                Discover MO&A <ArrowUpRight className="h-4 w-4" />
+              <Link href="/contact?subject=brochure" className="flex items-center justify-center gap-2">
+                <Download className="h-4 w-4" />
+                <span>DOWNLOAD BROCHURE</span>
               </Link>
             </Button>
           </div>

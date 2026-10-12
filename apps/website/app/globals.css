@@ -91,3 +91,63 @@ body {
   background: var(--primary);
   color: var(--primary-foreground);
 }
+
+/* Hero Carousel Staggered Animations */
+@keyframes heroSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroLineExpand {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 1.75rem;
+    opacity: 1;
+  }
+}
+
+.animate-hero-eyebrow {
+  animation: heroSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hero-eyebrow::before {
+  animation: heroLineExpand 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hero-heading {
+  animation: heroSlideIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+.animate-hero-desc {
+  animation: heroSlideIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+
+.animate-hero-actions {
+  animation: heroSlideIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+@keyframes heroTimerFill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-hero-timer {
+  animation: heroTimerFill 7s linear forwards;
+}
+
+.paused-timer {
+  animation-play-state: paused;
+}

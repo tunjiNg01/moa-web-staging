@@ -40,7 +40,7 @@ export function SiteHeader() {
         className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
           isTransparent
             ? "bg-transparent border-transparent text-white"
-            : "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md text-foreground border-b border-border shadow-xs"
+            : "bg-white/95 backdrop-blur-md text-slate-900 border-b border-slate-200/80 shadow-xs"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 sm:h-24 flex items-center justify-between gap-8">
@@ -52,7 +52,7 @@ export function SiteHeader() {
           >
             <div
               className={`relative w-24 h-10 sm:w-28 sm:h-12 flex items-center px-2 py-1 rounded transition-colors ${
-                isTransparent ? "bg-white/90 backdrop-blur-xs shadow-xs" : ""
+                isTransparent ? "bg-white/0 backdrop-blur-xs shadow-xs" : ""
               }`}
             >
               <Image
@@ -68,7 +68,7 @@ export function SiteHeader() {
               className={`hidden lg:block pl-4 border-l text-[10px] tracking-wider uppercase font-semibold leading-relaxed transition-colors ${
                 isTransparent
                   ? "border-white/30 text-white/85 group-hover:text-white"
-                  : "border-border text-muted-foreground group-hover:text-foreground"
+                  : "border-slate-200 text-slate-500 group-hover:text-slate-900"
               }`}
             >
               Structural engineering
@@ -111,7 +111,7 @@ export function SiteHeader() {
                   className={`relative py-2 transition-colors ${
                     isActive
                       ? "text-primary font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary"
-                      : "text-foreground/80 hover:text-primary"
+                      : "text-slate-700 hover:text-primary"
                   }`}
                 >
                   {link.label}
@@ -128,7 +128,11 @@ export function SiteHeader() {
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
-              className={isTransparent ? "text-white hover:bg-white/10" : ""}
+              className={
+                isTransparent
+                  ? "text-white hover:bg-white/10"
+                  : "text-slate-800 hover:bg-slate-100"
+              }
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -137,8 +141,8 @@ export function SiteHeader() {
 
         {/* Mobile Drawer */}
         {isOpen && (
-          <div className="md:hidden border-b border-border bg-white dark:bg-slate-900 px-6 py-6 shadow-xl animate-in slide-in-from-top-2 duration-200">
-            <nav className="flex flex-col gap-4 text-base font-semibold text-foreground">
+          <div className="md:hidden border-b border-slate-200 bg-white px-6 py-6 shadow-xl animate-in slide-in-from-top-2 duration-200">
+            <nav className="flex flex-col gap-4 text-base font-semibold text-slate-800">
               {navLinks.map((link) => {
                 const isActive =
                   link.href === "/"
@@ -151,8 +155,8 @@ export function SiteHeader() {
                     onClick={() => setIsOpen(false)}
                     className={`py-2 px-3 rounded-md transition-colors ${
                       isActive
-                        ? "bg-secondary text-primary font-bold"
-                        : "text-foreground hover:bg-secondary/60"
+                        ? "bg-red-50 text-primary font-bold"
+                        : "text-slate-700 hover:bg-slate-100"
                     }`}
                   >
                     {link.label}
