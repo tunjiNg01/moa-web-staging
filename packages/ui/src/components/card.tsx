@@ -1,7 +1,7 @@
 import * as React from "react"
 import { cn } from "cn"
 
-export interface CardProps extends React.ComponentProps<"div"> {
+export interface CardProps extends Omit<React.ComponentProps<"div">, "title"> {
   title?: React.ReactNode
   description?: React.ReactNode
 }
