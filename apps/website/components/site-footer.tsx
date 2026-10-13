@@ -6,6 +6,7 @@ const footerLinks = [
   { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
   { href: "/about", label: "About us" },
+  { href: "/news", label: "News & Foresight" },
   { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact us" },
 ] as const;

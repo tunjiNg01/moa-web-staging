@@ -213,3 +213,119 @@ export function getAllProjects(): Project[] {
 export function getAllServices(): Service[] {
   return services;
 }
+
+export interface NewsArticle {
+  id: string;
+  slug: string;
+  title: string;
+  category: "Foresight" | "Industry Insight" | "Company News" | "Sustainability";
+  summary: string;
+  content: string[];
+  date: string;
+  readTime: string;
+  image: string;
+  featured?: boolean;
+  author: {
+    name: string;
+    role: string;
+  };
+}
+
+export const newsArticles: NewsArticle[] = [
+  {
+    id: "urban-infrastructure-west-africa",
+    slug: "urban-infrastructure-west-africa",
+    title: "The Future of High-Density Urban Infrastructure in West Africa",
+    category: "Foresight",
+    summary:
+      "Rapid urbanization across Lagos, Accra, and regional hubs demands forward-thinking structural engineering that anticipates climate resilience, flexible density, and long-term asset value.",
+    content: [
+      "Metropolitan centers in West Africa are experiencing some of the world's most dynamic demographic and economic expansions. For structural engineers and development consultants, this shift requires a departure from conventional building paradigms toward integrated, climate-resilient frameworks.",
+      "High-density urban corridors present distinct geotechnical and meteorological challenges—from high groundwater tables and coastal salinity to intense seasonal precipitation. Designing foundations and lateral force-resisting systems that offer durability under these conditions is fundamental to protecting capital investment.",
+      "At MO&A, our strategic foresight focuses on adaptive structural grids that allow commercial developments to evolve over time, integrating energy-efficient cantilevers, solar shading facades, and precast modular components to compress construction schedules while elevating safety and performance standards.",
+    ],
+    date: "October 2026",
+    readTime: "5 min read",
+    image: "/images/news-urban-foresight.jpg",
+    featured: true,
+    author: {
+      name: "Engr. Femi Abe",
+      role: "Director of Structural Advisory",
+    },
+  },
+  {
+    id: "sustainable-concrete-tropical-climates",
+    slug: "sustainable-concrete-tropical-climates",
+    title: "Decarbonizing Structural Concrete: Practical Material Strategies in Tropical Environments",
+    category: "Sustainability",
+    summary:
+      "Balancing structural durability and embodied carbon reduction requires specialized mix designs, pozzolanic cement replacements, and stringent quality governance.",
+    content: [
+      "Concrete remains the primary structural material underpinning Africa’s built environment. However, as global decarbonization mandates and regional sustainability commitments accelerate, engineering firms must pioneer practical, locally viable low-carbon alternatives.",
+      "In hot and humid climates, supplementary cementitious materials (SCMs)—including ground granulated blast-furnace slag (GGBS) and calcined clays—not only decrease embodied carbon by up to 35%, but also mitigate thermal cracking during mass concrete pours and enhance resistance against sulfate and chloride attacks.",
+      "Through rigorous structural optimization and material testing, MO&A guides developers and public authorities in achieving leaner, high-performing structural sections without compromising strength, safety, or longevity.",
+    ],
+    date: "September 2026",
+    readTime: "4 min read",
+    image: "/images/news-sustainable-materials.jpg",
+    featured: true,
+    author: {
+      name: "Dr. O. Omonitan",
+      role: "Lead Materials & Systems Specialist",
+    },
+  },
+  {
+    id: "regional-expansion-accra-ghana",
+    slug: "regional-expansion-accra-ghana",
+    title: "MO&A Expands West African Operations with Direct Footprint in Accra, Ghana",
+    category: "Company News",
+    summary:
+      "Building on over 40 years of pioneering engineering in Nigeria, MO&A formalizes its cross-border consulting presence to support landmark infrastructure across Ghana.",
+    content: [
+      "Morgan Omonitan & Abe Ltd (MO&A) is pleased to announce the formal expansion of its consultancy operations to Accra, Ghana, reinforcing our long-standing commitment to delivering premier engineering and development advisory throughout West Africa.",
+      "Having partnered on major cross-border commercial, industrial, and infrastructure assignments over past decades, the Accra presence provides local and multinational stakeholders with direct access to our multidisciplinary technical teams.",
+      "As West Africa accelerates regional trade and urban development under the AfCFTA framework, MO&A remains positioned at the forefront of providing independent, world-class structural engineering and project management consultancy.",
+    ],
+    date: "August 2026",
+    readTime: "3 min read",
+    image: "/images/structure-detail.jpg",
+    featured: true,
+    author: {
+      name: "Executive Directorate",
+      role: "MO&A Management",
+    },
+  },
+  {
+    id: "structural-health-retrofitting-civic-assets",
+    slug: "structural-health-retrofitting-civic-assets",
+    title: "Extending the Lifespan of Legacy Civic Infrastructure Through Adaptive Retrofitting",
+    category: "Industry Insight",
+    summary:
+      "Why rehabilitation and advanced non-destructive assessment offer cost-effective, sustainable alternatives to complete demolition for public and commercial buildings.",
+    content: [
+      "Across mature business districts, many commercial and civic structures built in the 1970s and 1980s are approaching pivotal milestone reviews. Demolishing and rebuilding is frequently cost-prohibitive, carbon-intensive, and disruptive to metropolitan commerce.",
+      "Advanced structural health monitoring, combined with carbon-fiber-reinforced polymer (CFRP) wrapping and targeted foundation underpinning, enables engineers to upgrade load capacity to modern codes while preserving architectural heritage.",
+      "MO&A's diagnostic engineering team continues to deploy comprehensive feasibility audits that empower asset custodians to extend building service life by decades while significantly enhancing seismic and wind performance.",
+    ],
+    date: "July 2026",
+    readTime: "4 min read",
+    image: "/images/engineering-hero.jpg",
+    featured: false,
+    author: {
+      name: "Engr. K. Morgan",
+      role: "Principal Forensic & Retrofit Engineer",
+    },
+  },
+];
+
+export function getAllNews(): NewsArticle[] {
+  return newsArticles;
+}
+
+export function getFeaturedNews(): NewsArticle[] {
+  return newsArticles.filter((article) => article.featured);
+}
+
+export function getNewsArticle(slug: string): NewsArticle | undefined {
+  return newsArticles.find((article) => article.slug === slug);
+}
