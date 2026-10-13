@@ -5,13 +5,13 @@ import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@repo/ui";
 import { PageHeading } from "@/components/page-heading";
+import { ServicesDirectory } from "@/components/services-directory";
 import { ContactBand } from "@/components/contact-band";
-import { services } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Our Services",
   description:
-    "Explore MO&A structural design, engineering consultancy, structural assessment and rehabilitation services.",
+    "Explore MO&A's 12 professional engineering disciplines including feasibility, detailed design, value engineering, construction audit, and expert advisory.",
 };
 
 export default function ServicesPage() {
@@ -19,70 +19,14 @@ export default function ServicesPage() {
     <div>
       <PageHeading
         label="Our expertise"
-        title="The thinking behind stronger structures."
-        description="From the first question to the final detail, we bring a considered engineering perspective to your project."
+        title="12 Disciplines. One standard of engineering excellence."
+        description="From pre-construction feasibility through detailed design, site supervision, and structural forensics across West Africa."
       />
 
-      {/* Services Grid with Details */}
+      {/* Filterable Services Directory */}
       <section className="py-20 sm:py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-          {services.map((service, index) => (
-            <article
-              id={service.id}
-              key={service.id}
-              className="border-t border-border pt-8 scroll-mt-28 flex flex-col justify-between"
-            >
-              <div>
-                <span className="text-primary text-xs font-mono font-bold block">
-                  0{index + 1} /
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-medium tracking-tight mt-6 mb-4 text-foreground">
-                  {service.title}
-                </h2>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
-                  {service.description}
-                </p>
-
-                <h3 className="text-xs uppercase tracking-wider font-bold text-foreground mb-3">
-                  Capabilities
-                </h3>
-                <ul className="text-sm text-muted-foreground space-y-2.5 pl-4 list-disc mb-8">
-                  {service.details.map((detail) => (
-                    <li key={detail}>{detail}</li>
-                  ))}
-                </ul>
-
-                <h3 className="text-xs uppercase tracking-wider font-bold text-foreground mb-3">
-                  Our Process
-                </h3>
-                <div className="space-y-4 mb-8">
-                  {service.process.map((step, stepIndex) => (
-                    <div key={step.title} className="text-xs">
-                      <span className="font-semibold text-foreground block">
-                        {stepIndex + 1}. {step.title}
-                      </span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        {step.description}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-border/50">
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="font-semibold border-border hover:bg-secondary w-full justify-between"
-                >
-                  <Link href={`/projects/${service.relatedProjectId}`}>
-                    View related project <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </article>
-          ))}
+        <div className="max-w-7xl mx-auto px-6">
+          <ServicesDirectory />
         </div>
       </section>
 

@@ -4,8 +4,10 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
 import { Button } from "@repo/ui";
+import { ServicesMegaMenu } from "./services-mega-menu";
+import { services } from "@/lib/site-content";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -21,6 +23,8 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,8 +36,15 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close menus on page navigation
+  useEffect(() => {
+    setIsServicesOpen(false);
+    setIsOpen(false);
+    setMobileServicesOpen(false);
+  }, [pathname]);
+
   const isHome = pathname === "/";
-  const isTransparent = isHome && !isScrolled && !isOpen;
+  const isTransparent = isHome && !isScrolled && !isOpen && !isServicesOpen;
 
   return (
     <>
@@ -43,6 +54,7 @@ export function SiteHeader() {
             ? "bg-transparent border-transparent text-white"
             : "bg-white/95 backdrop-blur-md text-slate-900 border-b border-slate-200/80 shadow-xs"
         }`}
+        onMouseLeave={() => setIsServicesOpen(false)}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 sm:h-24 flex items-center justify-between gap-8">
           {/* Brand */}
@@ -84,10 +96,43 @@ export function SiteHeader() {
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => {
+              const isServicesLink = link.href === "/services";
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
                   : pathname.startsWith(link.href);
+
+              if (isServicesLink) {
+                return (
+                  <div
+                    key={link.href}
+                    className="relative py-2"
+                    onMouseEnter={() => setIsServicesOpen(true)}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setIsServicesOpen(!isServicesOpen)}
+                      className={`inline-flex items-center gap-1 py-1 transition-colors cursor-pointer ${
+                        isTransparent
+                          ? isActive || isServicesOpen
+                            ? "text-white font-bold"
+                            : "text-white/85 hover:text-white"
+                          : isActive || isServicesOpen
+                            ? "text-primary font-bold"
+                            : "text-slate-700 hover:text-primary"
+                      }`}
+                      aria-expanded={isServicesOpen}
+                    >
+                      <span>{link.label}</span>
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform duration-200 ${
+                          isServicesOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                  </div>
+                );
+              }
 
               if (isTransparent) {
                 return (
@@ -140,15 +185,75 @@ export function SiteHeader() {
           </div>
         </div>
 
+        {/* Desktop Services Mega Menu Dropdown */}
+        <ServicesMegaMenu
+          isOpen={isServicesOpen}
+          onClose={() => setIsServicesOpen(false)}
+        />
+
         {/* Mobile Drawer */}
         {isOpen && (
-          <div className="md:hidden border-b border-slate-200 bg-white px-6 py-6 shadow-xl animate-in slide-in-from-top-2 duration-200">
-            <nav className="flex flex-col gap-4 text-base font-semibold text-slate-800">
+          <div className="md:hidden border-b border-slate-200 bg-white px-6 py-6 shadow-xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
+            <nav className="flex flex-col gap-2 text-base font-semibold text-slate-800">
               {navLinks.map((link) => {
+                const isServicesLink = link.href === "/services";
                 const isActive =
                   link.href === "/"
                     ? pathname === "/"
                     : pathname.startsWith(link.href);
+
+                if (isServicesLink) {
+                  return (
+                    <div key={link.href} className="flex flex-col">
+                      <div className="flex items-center justify-between py-2 px-3 rounded-md hover:bg-slate-100">
+                        <Link
+                          href="/services"
+                          onClick={() => setIsOpen(false)}
+                          className={isActive ? "text-primary font-bold" : "text-slate-800"}
+                        >
+                          Services
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                          aria-label="Toggle all services"
+                          className="p-1 text-slate-500 hover:text-primary"
+                        >
+                          <ChevronDown
+                            className={`h-5 w-5 transition-transform ${
+                              mobileServicesOpen ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Expandable Mobile Services Sub-list */}
+                      {mobileServicesOpen && (
+                        <div className="pl-4 pr-1 py-2 flex flex-col gap-1.5 border-l-2 border-slate-200 ml-3 my-1">
+                          {services.map((service) => (
+                            <Link
+                              key={service.id}
+                              href={`/services/${service.id}`}
+                              onClick={() => setIsOpen(false)}
+                              className="py-1.5 px-2 text-xs font-medium text-slate-600 hover:text-primary flex items-center justify-between"
+                            >
+                              <span>{service.title}</span>
+                              <ArrowUpRight className="h-3 w-3 text-slate-400" />
+                            </Link>
+                          ))}
+                          <Link
+                            href="/services"
+                            onClick={() => setIsOpen(false)}
+                            className="mt-2 py-1.5 px-2 text-xs font-bold text-primary uppercase tracking-wider"
+                          >
+                            All 12 Services →
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
                 return (
                   <Link
                     key={link.href}

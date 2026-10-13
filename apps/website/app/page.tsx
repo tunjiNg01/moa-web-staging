@@ -103,7 +103,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((service, index) => (
+            {services.slice(0, 3).map((service, index) => (
               <article
                 key={service.id}
                 className="border-t border-border pt-6 flex flex-col justify-between"
@@ -113,9 +113,11 @@ export default function HomePage() {
                     0{index + 1} /
                   </span>
                   <h3 className="text-2xl font-medium tracking-tight mt-6 mb-3 text-foreground">
-                    {service.title}
+                    <Link href={`/services/${service.id}`} className="hover:text-primary transition-colors">
+                      {service.title}
+                    </Link>
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 line-clamp-3">
                     {service.description}
                   </p>
                 </div>
@@ -126,7 +128,7 @@ export default function HomePage() {
                   className="self-start font-medium border-border hover:bg-secondary"
                 >
                   <Link
-                    href={`/services#${service.id}`}
+                    href={`/services/${service.id}`}
                     className="inline-flex items-center gap-1.5"
                   >
                     Learn more <ArrowUpRight className="h-3.5 w-3.5" />

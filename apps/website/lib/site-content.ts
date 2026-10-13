@@ -6,8 +6,10 @@ export interface ServiceProcessStep {
 export interface Service {
   id: string;
   title: string;
+  category: "Pre-Construction & Feasibility" | "Design & Engineering" | "Construction & Quality Governance" | "Inspections & Expert Advisory";
   description: string;
   details: string[];
+  deliverables: string[];
   process: ServiceProcessStep[];
   relatedProjectId: string;
 }
@@ -32,106 +34,388 @@ export type ProjectWithCaseStudy = Project & CaseStudy;
 
 export const services: Service[] = [
   {
-    id: "structural-design",
-    title: "Structural design",
+    id: "feasibility-studies",
+    title: "Feasibility Studies",
+    category: "Pre-Construction & Feasibility",
     description:
-      "Considered structural solutions that bring architectural ambition to life. From early concepts to detailed design, we balance strength, efficiency and buildability.",
+      "Comprehensive structural viability, site constraint assessments, and early concept evaluations to establish technical and financial viability before major capital commitment.",
     details: [
-      "Concept and feasibility studies",
-      "Concrete, steel, timber and masonry design",
-      "Detailed structural analysis and documentation",
+      "Site constraint & geotechnical desk study review",
+      "Structural framing option appraisal & cost comparison",
+      "Planning & building regulations risk analysis",
+    ],
+    deliverables: [
+      "Executive Feasibility Report",
+      "Structural Concept Framing Options",
+      "Initial Risk & Constructability Matrix",
     ],
     process: [
       {
-        title: "Understand the ambition",
-        description:
-          "We learn what the project needs to achieve, the constraints it must work within and the people shaping it.",
+        title: "Define Objectives & Constraints",
+        description: "Engage client and architectural team to clarify functional spatial needs, site boundaries, and operational goals.",
       },
       {
-        title: "Explore the structure",
-        description:
-          "We develop and compare structural options with the wider project team, balancing design intent, efficiency and buildability.",
+        title: "Option Modeling & Technical Appraisal",
+        description: "Evaluate concrete, steel, and hybrid structural schemes for efficiency, cost, and foundation implications.",
       },
       {
-        title: "Develop the design",
-        description:
-          "We coordinate analysis, drawings and structural details as the preferred approach takes shape.",
-      },
-      {
-        title: "Support delivery",
-        description:
-          "We stay connected through project coordination, responding to questions as the design moves toward construction.",
-      },
-    ],
-    relatedProjectId: "civic",
-  },
-  {
-    id: "engineering-consultancy",
-    title: "Engineering consultancy",
-    description:
-      "Clear thinking at every stage. We work alongside architects, developers and contractors to resolve complexity and move projects forward with confidence.",
-    details: [
-      "Independent technical advice",
-      "Design coordination and review",
-      "Construction-stage engineering support",
-    ],
-    process: [
-      {
-        title: "Listen and define",
-        description:
-          "We establish the project context, key decisions and the advice that will help the team move forward.",
-      },
-      {
-        title: "Review the options",
-        description:
-          "We bring technical perspective to design choices, interfaces and coordination across disciplines.",
-      },
-      {
-        title: "Give clear direction",
-        description:
-          "We explain recommendations and trade-offs in a way the wider project team can act on.",
-      },
-      {
-        title: "Stay alongside the team",
-        description:
-          "We provide follow-through as questions emerge and project decisions develop.",
+        title: "Viability Synthesis & Next Steps",
+        description: "Present actionable recommendations balancing structural performance, buildability, and project ROI.",
       },
     ],
     relatedProjectId: "commercial",
   },
   {
-    id: "assessment-rehabilitation",
-    title: "Assessment & rehabilitation",
+    id: "tender-detailed-design",
+    title: "Tender & Detailed Design",
+    category: "Design & Engineering",
     description:
-      "A new perspective on existing structures. We assess performance, identify opportunities and develop practical approaches to extending a building’s useful life.",
+      "Fully coordinated structural analysis, engineering calculations, detailed construction drawings, specifications, and bill of quantities for competitive procurement and site execution.",
     details: [
-      "Structural condition assessments",
-      "Alterations and change-of-use studies",
-      "Strengthening and rehabilitation strategies",
+      "Comprehensive 3D finite-element structural analysis",
+      "Detailed reinforced concrete, structural steel, and masonry design",
+      "Tender drawing packages, bar bending schedules, and technical specifications",
+    ],
+    deliverables: [
+      "Approved-for-Construction (AFC) Drawings",
+      "Structural Calculation & Code Compliance Package",
+      "Tender Technical Specifications & BOQ Integration",
     ],
     process: [
       {
-        title: "Gather the picture",
-        description:
-          "We understand the building’s history, intended use and the questions that prompted an assessment.",
+        title: "Scheme Optimization & Analysis",
+        description: "Build robust mathematical and finite element models to determine load paths, lateral stability, and deflections.",
       },
       {
-        title: "Assess what exists",
-        description:
-          "We review available information and examine relevant structural elements to understand their condition.",
+        title: "Multidisciplinary Coordination",
+        description: "Resolve interfaces with MEP, architectural, and facade consultants to eliminate site clashes.",
       },
       {
-        title: "Identify opportunities",
-        description:
-          "We consider practical options for adaptation, repair or strengthening in light of the project brief.",
+        title: "Tender Documentation Issuance",
+        description: "Prepare comprehensive specifications and schedules that allow contractors to tender with confidence.",
+      },
+    ],
+    relatedProjectId: "civic",
+  },
+  {
+    id: "project-management",
+    title: "Project Management",
+    category: "Pre-Construction & Feasibility",
+    description:
+      "End-to-end technical governance, schedule orchestration, contract administration, and stakeholder alignment ensuring structural works are delivered safely, on schedule, and on budget.",
+    details: [
+      "Master schedule management and milestone tracking",
+      "Procurement strategy and contractor contract administration",
+      "Interdisciplinary risk management and value delivery",
+    ],
+    deliverables: [
+      "Project Execution Plan (PEP)",
+      "Weekly & Monthly Progress Governance Reports",
+      "Earned Value & Program Risk Logs",
+    ],
+    process: [
+      {
+        title: "Initiation & Governance Setup",
+        description: "Establish communication protocols, procurement gateways, and the baseline master programme.",
       },
       {
-        title: "Set out next steps",
-        description:
-          "We document findings and outline a clear path for further investigation or design development.",
+        title: "Active Delivery Monitoring",
+        description: "Track engineering progress, review contractor submittals, and enforce rigorous quality milestones.",
+      },
+      {
+        title: "Commissioning & Handover",
+        description: "Oversee final inspections, technical documentation collation, and statutory authority sign-offs.",
+      },
+    ],
+    relatedProjectId: "commercial",
+  },
+  {
+    id: "value-engineering",
+    title: "Value Engineering",
+    category: "Design & Engineering",
+    description:
+      "Independent rationalization of structural schemes to eliminate material waste, simplify construction sequencing, and optimize capital expenditure without compromising safety or architectural vision.",
+    details: [
+      "Re-engineering of oversized foundations and superstructure framing",
+      "Optimization of reinforcement density and concrete strength grades",
+      "Standardization of repetitive elements to accelerate construction speed",
+    ],
+    deliverables: [
+      "Value Engineering Audit & Variance Analysis",
+      "Optimized Member Sizing & Quantity Comparison Tables",
+      "Constructability & Supply Chain Cost-Savings Blueprint",
+    ],
+    process: [
+      {
+        title: "Design Audit & Cost Drivers",
+        description: "Scrutinize existing structural models and bills of quantities to identify material and constructability bottlenecks.",
+      },
+      {
+        title: "Alternative System Modeling",
+        description: "Engineer alternative structural layouts, transfer structures, or foundation solutions with measurable savings.",
+      },
+      {
+        title: "Client & Contractor Alignment",
+        description: "Demonstrate verified cost and schedule savings while preserving full structural integrity.",
       },
     ],
     relatedProjectId: "residential",
+  },
+  {
+    id: "independent-design-checking",
+    title: "Independent Design Checking",
+    category: "Design & Engineering",
+    description:
+      "Rigorous third-party peer review, structural safety audits, and code compliance verifications of designs prepared by external consultants and contractors.",
+    details: [
+      "Parallel verification of 3D finite element models and load path distribution",
+      "Review against Nigerian (NBC), British (BS), and Eurocode standards",
+      "Assessment of thermal, wind, and seismic design criteria",
+    ],
+    deliverables: [
+      "Independent Design Check Certificate (Cat III / Peer Review)",
+      "Technical Review Query (TRQ) Log & Mitigation Ledger",
+      "Structural Adequacy & Code Compliance Sign-Off",
+    ],
+    process: [
+      {
+        title: "Documentation & Criteria Review",
+        description: "Examine design basis reports, loading criteria, and calculation packages provided by the original engineer.",
+      },
+      {
+        title: "Independent Analytical Verification",
+        description: "Construct independent models to verify member capacities, deflections, and foundation bearing pressures.",
+      },
+      {
+        title: "Certification & Risk Remediation",
+        description: "Highlight deficiencies or non-compliances and issue formal certification upon satisfactory resolution.",
+      },
+    ],
+    relatedProjectId: "civic",
+  },
+  {
+    id: "construction-supervision",
+    title: "Construction Supervision",
+    category: "Construction & Quality Governance",
+    description:
+      "Resident and periodic on-site structural engineering surveillance, verifying that all construction activities strictly adhere to approved designs, specifications, and safety codes.",
+    details: [
+      "Reinforcement pre-pour inspections and concrete slump/cube testing oversight",
+      "Steelwork fabrication and site bolt torque/weld inspection",
+      "Non-conformance identification and corrective action tracking",
+    ],
+    deliverables: [
+      "Site Inspection Reports (SIR) & Pour Clearances",
+      "Non-Conformance Reports (NCR) & Resolution Records",
+      "As-Built Verification & Practical Completion Certificates",
+    ],
+    process: [
+      {
+        title: "Pre-Construction Briefing",
+        description: "Review contractor method statements, material test certificates, and establish hold points.",
+      },
+      {
+        title: "Rigorous Site Inspections",
+        description: "Inspect shuttering, reinforcement fixing, concrete batching, and steel erection at every crucial milestone.",
+      },
+      {
+        title: "Certification & Quality Records",
+        description: "Maintain comprehensive quality dossiers required for institutional handover and statutory approvals.",
+      },
+    ],
+    relatedProjectId: "commercial",
+  },
+  {
+    id: "construction-audit",
+    title: "Construction Audit",
+    category: "Construction & Quality Governance",
+    description:
+      "Independent forensic evaluations of ongoing or completed works to verify workmanship standards, material compliance, contractual conformity, and safety integrity.",
+    details: [
+      "Core sampling, rebound hammer, and ultrasonic pulse velocity review",
+      "Audit of contractor quality management systems and test records",
+      "Forensic examination of structural deviations and construction defects",
+    ],
+    deliverables: [
+      "Comprehensive Construction Quality Audit Report",
+      "Material Non-Compliance Risk Assessment",
+      "Remedial & Rectification Engineering Directives",
+    ],
+    process: [
+      {
+        title: "Desk Study & Test Data Review",
+        description: "Scrutinize pour logs, batching tickets, cube crush results, and mill test certificates.",
+      },
+      {
+        title: "Physical Site Investigation",
+        description: "Perform physical geometric surveys and non-destructive testing on installed structural elements.",
+      },
+      {
+        title: "Findings & Rectification Framework",
+        description: "Deliver prioritized action plans for addressing non-compliant elements before occupancy.",
+      },
+    ],
+    relatedProjectId: "residential",
+  },
+  {
+    id: "expert-services",
+    title: "Expert Services",
+    category: "Inspections & Expert Advisory",
+    description:
+      "Authoritative technical dispute advisory, expert witness testimony, structural forensic investigations, and insurance claim appraisals for developers, legal counsel, and insurers.",
+    details: [
+      "Structural failure root-cause forensics and damage appraisal",
+      "Independent technical opinions for mediation, arbitration, and court proceedings",
+      "Insurance claim assessment and reinstatement scope determination",
+    ],
+    deliverables: [
+      "Independent Expert Witness Reports",
+      "Forensic Failure Analysis & Evidence Dossiers",
+      "Arbitration & Dispute Resolution Technical Submissions",
+    ],
+    process: [
+      {
+        title: "Evidence Gathering & Forensic Assessment",
+        description: "Collect physical samples, review contractual records, and inspect distressed structural components.",
+      },
+      {
+        title: "Advanced Structural Re-Analysis",
+        description: "Simulate failure modes and stress concentrations to establish the definitive cause of structural distress.",
+      },
+      {
+        title: "Authoritative Expert Reporting",
+        description: "Deliver objective, court-admissible technical testimony with unimpeachable engineering rigor.",
+      },
+    ],
+    relatedProjectId: "civic",
+  },
+  {
+    id: "condition-surveys-inspections",
+    title: "Condition Surveys, Structural Inspections and Monitoring",
+    category: "Inspections & Expert Advisory",
+    description:
+      "Detailed structural health appraisals, dilapidation surveys, crack monitoring, vibration tracking, and life-extension assessments for historic, industrial, and commercial properties.",
+    details: [
+      "Visual and tactile condition mapping of structural distress",
+      "Long-term tilt, settlement, and crack propagation monitoring",
+      "Residual capacity calculations and change-of-use structural evaluations",
+    ],
+    deliverables: [
+      "Comprehensive Condition Survey & Defect Schedule",
+      "Structural Monitoring Trend Reports & Alert Triggers",
+      "Remedial Strengthening & Life Extension Strategy",
+    ],
+    process: [
+      {
+        title: "Initial Visual & Non-Destructive Survey",
+        description: "Map visible signs of distress including spalling, reinforcement corrosion, and deflection patterns.",
+      },
+      {
+        title: "Instrumentation & Sensor Deployment",
+        description: "Install precision tell-tales, inclinometers, and vibration sensors to track dynamic movement over time.",
+      },
+      {
+        title: "Diagnostic Synthesis & Remediation",
+        description: "Formulate concrete repair, carbon fiber (CFRP) wrapping, or underpinning solutions.",
+      },
+    ],
+    relatedProjectId: "residential",
+  },
+  {
+    id: "ground-investigation",
+    title: "Ground Investigation Specifications and Interpretation",
+    category: "Pre-Construction & Feasibility",
+    description:
+      "Design of targeted borehole investigation programs, laboratory testing oversight, and geotechnical interpretation to determine bearing capacity and foundation design parameters.",
+    details: [
+      "Borehole layout, rotary drilling, and standard penetration test (SPT) specifications",
+      "Laboratory testing suites for soil mechanics, shear strength, and chemical aggressiveness",
+      "Geotechnical design parameters for shallow, raft, and piled foundations",
+    ],
+    deliverables: [
+      "Ground Investigation (GI) Specification & Scope of Works",
+      "Geotechnical Interpretative Report (GIR)",
+      "Foundation Recommendations & Settlement Estimates",
+    ],
+    process: [
+      {
+        title: "Geological Desk Study & Program Scoping",
+        description: "Analyze regional geology, historical ground records, and planned structural load profiles.",
+      },
+      {
+        title: "Fieldwork Supervision & Sampling",
+        description: "Supervise drilling operations, sample recovery, in-situ testing, and groundwater monitoring.",
+      },
+      {
+        title: "Engineering Interpretation & Design Data",
+        description: "Derive characteristic geotechnical soil parameters for safe and cost-effective foundation sizing.",
+      },
+    ],
+    relatedProjectId: "commercial",
+  },
+  {
+    id: "erection-temporary-works",
+    title: "Erection Engineering and Temporary Works Design",
+    category: "Construction & Quality Governance",
+    description:
+      "Engineered design and certification of temporary support systems, deep basement shoring, heavy falsework, crane loading pads, and complex erection sequences.",
+    details: [
+      "Sheet piling, contiguous piles, and earth retention design",
+      "Heavy duty scaffolding, formwork, and falsework engineering",
+      "Structural stability analysis during phased construction and demolition",
+    ],
+    deliverables: [
+      "Temporary Works Design Calculations & Drawings",
+      "Permit-to-Load and Permit-to-Dismantle Certificates",
+      "Sequence Methodology & Safety Method Statements",
+    ],
+    process: [
+      {
+        title: "Contractor Coordination & Load Analysis",
+        description: "Establish plant weights, construction loads, wind actions, and lateral earth pressures.",
+      },
+      {
+        title: "Rigorous Structural Design",
+        description: "Size steel members, props, tie-backs, and timber pads with ample factors of safety.",
+      },
+      {
+        title: "Site Sign-Off & Inspection",
+        description: "Inspect erected temporary works prior to concrete pouring or excavation commencement.",
+      },
+    ],
+    relatedProjectId: "civic",
+  },
+  {
+    id: "design-interface-management",
+    title: "Design Interface and Management",
+    category: "Design & Engineering",
+    description:
+      "Structured interdisciplinary coordination, BIM clash resolution, and interface risk tracking uniting structural, architectural, MEP, facade, and geotechnical disciplines.",
+    details: [
+      "3D BIM coordination and automated clash detection protocols",
+      "Management of structural penetrations, MEP risers, and plant loads",
+      "Technical Interface Ledger (TIL) tracking across project participants",
+    ],
+    deliverables: [
+      "Design Interface Matrix & Protocols",
+      "BIM Federation & Clash Resolution Reports",
+      "Resolved Interdisciplinary Structural Coordination Packages",
+    ],
+    process: [
+      {
+        title: "Protocol Establishment & Matrix Formulation",
+        description: "Define design responsibilities, Level of Development (LOD) standards, and milestone delivery dates.",
+      },
+      {
+        title: "Federation & Clash Workshops",
+        description: "Review federated models in regular technical workshops to resolve structural conflicts early.",
+      },
+      {
+        title: "Final Interface Sign-Off",
+        description: "Verify that all penetration sleeves, embedment plates, and service loadings are coordinated before site issuance.",
+      },
+    ],
+    relatedProjectId: "commercial",
   },
 ];
 
