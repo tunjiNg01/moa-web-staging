@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   },
   description:
     "MO&A is a structural engineering consultancy bringing thoughtful design, technical clarity and collaborative thinking to the built environment.",
+  icons: {
+    icon: "/images/moa-logo.jpeg",
+    shortcut: "/images/moa-logo.jpeg",
+    apple: "/images/moa-logo.jpeg",
+  },
   openGraph: {
     title: "MO&A | Structural Engineering Consultancy",
     description:

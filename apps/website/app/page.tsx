@@ -4,6 +4,7 @@ import { ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@repo/ui";
 import { HeroParallaxSection } from "@/components/hero-parallax-section";
 import { ProjectGallery } from "@/components/project-gallery";
+import { TeamSection } from "@/components/team-section";
 import { NewsForesightSection } from "@/components/news-foresight-section";
 import { ContactBand } from "@/components/contact-band";
 import { services } from "@/lib/site-content";
@@ -163,6 +164,9 @@ export default function HomePage() {
           <ProjectGallery />
         </div>
       </section>
+
+      {/* Leadership & Organisation Team Section */}
+      <TeamSection />
 
       {/* News & Foresight Section */}
       <NewsForesightSection />

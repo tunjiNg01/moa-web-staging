@@ -329,3 +329,67 @@ export function getFeaturedNews(): NewsArticle[] {
 export function getNewsArticle(slug: string): NewsArticle | undefined {
   return newsArticles.find((article) => article.slug === slug);
 }
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  credentials: string;
+  bio: string;
+  image: string;
+  email?: string;
+  linkedin?: string;
+  featured?: boolean;
+}
+
+export const teamMembers: TeamMember[] = [
+  {
+    id: "babatunde-omonitan",
+    name: "Engr. Dr. Babatunde Omonitan",
+    role: "CEO & Managing Director",
+    credentials: "FNSE, FAEng, COREN Reg.",
+    bio: "Over 35 years of executive engineering leadership, directing major civil infrastructure, high-rise frameworks, and bilateral development partnerships across West Africa. He earned a Bachelor of Science in Civil Engineering and has guided MO&A from foundational commissions to cross-border institutional excellence.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    email: "b.omonitan@moa-engineering.com",
+    linkedin: "https://linkedin.com",
+    featured: true,
+  },
+  {
+    id: "folasade-abe",
+    name: "Engr. Folasade Abe",
+    role: "Executive Director, Structural Engineering",
+    credentials: "FNSE, FIStructE, COREN Reg.",
+    bio: "Leads complex structural design, seismic analysis, and long-span civic envelopes, ensuring buildability and architectural harmony on flagship commercial commissions. She pairs sharp technical insight with collaborative delivery models across large multidisciplinary consultant teams.",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+    email: "f.abe@moa-engineering.com",
+    linkedin: "https://linkedin.com",
+    featured: true,
+  },
+  {
+    id: "kwame-mensah",
+    name: "Engr. Kwame Mensah",
+    role: "Regional Director – West Africa (Ghana)",
+    credentials: "PE, MGhIE, PMP",
+    bio: "Directs MO&A’s expansion in Accra and regional cross-border initiatives, steering large-scale infrastructure project management and multidisciplinary coordination. Known for cultivating strong stakeholder alignment and de-risking capital investments across expanding metropolitan corridors.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
+    email: "k.mensah@moa-engineering.com",
+    linkedin: "https://linkedin.com",
+    featured: true,
+  },
+  {
+    id: "amara-okonjo",
+    name: "Dr. Amara Okonjo",
+    role: "Head of Technical Advisory & Materials",
+    credentials: "CEng, MICE, PhD Struct. Eng.",
+    bio: "Pioneers research into low-carbon pozzolanic concrete mix designs, non-destructive diagnostic evaluations, and structural durability in tropical marine zones. She consults on complex structural health monitoring and legacy asset lifespan extension for civic custodians.",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80",
+    email: "a.okonjo@moa-engineering.com",
+    linkedin: "https://linkedin.com",
+    featured: true,
+  },
+];
+
+export function getAllTeamMembers(): TeamMember[] {
+  return teamMembers;
+}
+
