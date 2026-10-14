@@ -128,7 +128,7 @@ export function TeamSection({
             type="button"
             onClick={() => setSelectedMember(null)}
             aria-label="Close details"
-            className="group fixed top-0 right-0 w-20 h-20 sm:w-24 sm:h-24 bg-white text-red-600 hover:bg-neutral-50 flex items-center justify-center z-[110] transition-colors cursor-pointer shadow-xl"
+            className="group fixed top-0 right-0 w-20 h-20 sm:w-24 sm:h-24 bg-white text-primary hover:bg-neutral-50 flex items-center justify-center z-[110] transition-colors cursor-pointer shadow-xl"
           >
             <X className="w-10 h-10 sm:w-12 sm:h-12 stroke-[2.75] transition-transform duration-300 ease-out group-hover:rotate-90 group-hover:scale-105" />
           </button>

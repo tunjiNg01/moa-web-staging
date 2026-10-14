@@ -261,7 +261,7 @@ export function SiteHeader() {
                     onClick={() => setIsOpen(false)}
                     className={`py-2 px-3 rounded-md transition-colors ${
                       isActive
-                        ? "bg-red-50 text-primary font-bold"
+                        ? "bg-primary/10 text-primary font-bold"
                         : "text-slate-700 hover:bg-slate-100"
                     }`}
                   >
