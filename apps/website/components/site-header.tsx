@@ -84,9 +84,9 @@ export function SiteHeader() {
                   : "border-slate-200 text-slate-500 group-hover:text-slate-900"
               }`}
             >
-              Structural engineering
+              Engineering, Consulting
               <br />
-              Consultancy
+              &amp; Development Firm
             </div>
           </Link>
 

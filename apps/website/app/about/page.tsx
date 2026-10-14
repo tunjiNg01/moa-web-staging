@@ -48,7 +48,7 @@ export default function AboutPage() {
       <PageHeading
         label="About MO&A"
         title="Engineering with purpose."
-        description="We are a structural engineering consultancy. Our work connects bold ideas with the technical thinking that makes them possible."
+        description="We are an engineering, consulting & development firm. Our work connects bold ideas with the technical thinking that makes them possible."
       />
 
       {/* The Way We Think - Split Section */}

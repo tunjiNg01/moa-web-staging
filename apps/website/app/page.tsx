@@ -22,7 +22,7 @@ export default function HomePage() {
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-2">
               <span className="text-primary text-xs uppercase tracking-widest font-bold block">
-                Engineering &amp; Development Consultancy
+                Engineering, Consulting &amp; Development Firm
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-tight text-foreground">
                 Behind every great structure,
@@ -32,7 +32,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-base sm:text-lg text-foreground/90 leading-relaxed font-normal pt-2">
-              <strong className="font-semibold text-foreground">Morgan Omonitan &amp; Abe Ltd – MO&amp;A</strong>, is an engineering &amp; development consulting firm in Nigeria, with recent expansion to Ghana in West Africa.
+              <strong className="font-semibold text-foreground">Morgan Omonitan &amp; Abe Ltd – MO&amp;A</strong>, is an engineering, consulting &amp; development firm in Nigeria, with recent expansion to Ghana in West Africa.
             </p>
 
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
@@ -54,7 +54,7 @@ export default function HomePage() {
           <div className="lg:col-span-5 flex flex-col gap-4">
             <div className="bg-[#374151] text-white p-7 sm:p-8 rounded-sm shadow-md border border-slate-700/60 flex flex-col justify-between">
               <p className="text-sm sm:text-base leading-relaxed italic text-slate-100 font-light">
-                &ldquo;A diversity of Stakeholders from all over the world, including Governments, Multinationals, Bilateral Agencies, Public and Private Sector Businesses and Individuals engage us to provide specialist services for their major engineering and construction projects. We are proud of our position as one of Nigeria&apos;s most knowledgeable and respected engineering consultancy firms.&rdquo;
+                &ldquo;A diversity of Stakeholders from all over the world, including Governments, Multinationals, Bilateral Agencies, Public and Private Sector Businesses and Individuals engage us to provide specialist services for their major engineering and construction projects. We are proud of our position as one of Nigeria&apos;s most knowledgeable and respected engineering, consulting &amp; development firms.&rdquo;
               </p>
               <div className="mt-6 pt-4 border-t border-slate-600/80">
                 <span className="text-xs uppercase tracking-wider font-semibold text-slate-300 block">

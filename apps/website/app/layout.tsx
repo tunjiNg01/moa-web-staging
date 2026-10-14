@@ -15,12 +15,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://main.d1ic7480t1o1t4
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MO&A | Structural Engineering & Development Consultancy",
+    default: "MO&A | Engineering, Consulting & Development Firm",
     template: "%s | MO&A",
   },
   description:
-    "Morgan Omonitan & Abe Ltd (MO&A) is a premier civil and structural engineering consultancy in Nigeria and Ghana, providing integrated engineering, project management, and independent expert advisory since 1972.",
+    "Morgan Omonitan & Abe Ltd (MO&A) is a premier engineering, consulting & development firm in Nigeria and Ghana, providing integrated engineering, project management, and independent expert advisory since 1972.",
   keywords: [
+    "engineering consulting development firm",
     "structural engineering consultancy",
     "civil engineering Nigeria",
     "structural engineer Lagos",
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
     apple: "/images/moa-logo.jpeg",
   },
   openGraph: {
-    title: "MO&A | Structural Engineering & Development Consultancy",
+    title: "MO&A | Engineering, Consulting & Development Firm",
     description:
       "Thoughtful engineering. Stronger structures. Lasting impact. Serving Nigeria and Ghana since 1972.",
     url: siteUrl,
@@ -63,13 +64,13 @@ export const metadata: Metadata = {
         url: "/images/moa-logo.jpeg",
         width: 1200,
         height: 630,
-        alt: "MO&A - Structural Engineering Consultancy",
+        alt: "MO&A - Engineering, Consulting & Development Firm",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MO&A | Structural Engineering & Development Consultancy",
+    title: "MO&A | Engineering, Consulting & Development Firm",
     description:
       "Thoughtful engineering. Stronger structures. Lasting impact across West Africa.",
     images: ["/images/moa-logo.jpeg"],
@@ -96,7 +97,7 @@ const jsonLd = {
   "logo": `${siteUrl}/images/moa-logo.jpeg`,
   "image": `${siteUrl}/images/moa-logo.jpeg`,
   "description":
-    "Premier structural and civil engineering consultancy delivering integrated engineering, project management, and independent expert services across Nigeria and West Africa.",
+    "Premier engineering, consulting & development firm delivering integrated engineering, project management, and independent expert services across Nigeria and West Africa.",
   "foundingDate": "1972",
   "address": {
     "@type": "PostalAddress",

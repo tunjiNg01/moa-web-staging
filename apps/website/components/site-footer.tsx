@@ -51,7 +51,7 @@ export function SiteFooter() {
 
         <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/50">
           <span>© {currentYear} MO&A. All rights reserved.</span>
-          <span>Structural engineering consultancy</span>
+          <span>Engineering, Consulting &amp; Development Firm</span>
         </div>
       </div>
     </footer>
