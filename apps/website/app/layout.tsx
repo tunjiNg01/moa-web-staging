@@ -107,10 +107,14 @@ const jsonLd = {
   "description":
     "MO&A Ltd (formerly Morgan Omonitan & Abe Ltd) is a premier engineering, consulting & development firm delivering integrated engineering, project management, and independent expert services across Nigeria and West Africa.",
   "foundingDate": "1972",
+  "telephone": ["+2348089137683", "+2349093608794"],
+  "email": "info@moanigeria.com",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "241, Igbosere Road",
+    "postOfficeBoxNumber": "7121",
     "addressLocality": "Lagos",
-    "addressCountry": "NG",
+    "addressCountry": "NG"
   },
   "areaServed": ["Nigeria", "Ghana", "West Africa"],
   "knowsAbout": [

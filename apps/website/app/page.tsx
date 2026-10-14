@@ -26,9 +26,7 @@ export default function HomePage() {
                   Engineering, Consulting &amp; Development Firm
                 </span>
                 <span className="hidden sm:inline-block text-muted-foreground/40 text-xs">•</span>
-                <span className="inline-flex items-center text-xs font-semibold tracking-wide px-2.5 py-0.5 rounded-sm bg-primary/10 text-primary border border-primary/20">
-                  MO&amp;A Ltd &bull; Formerly Morgan Omonitan &amp; Abe Ltd
-                </span>
+               
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-tight text-foreground">
                 Behind every great structure,

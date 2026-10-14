@@ -22,7 +22,7 @@ const slides: ValuePropSlide[] = [
   {
     id: "engineering",
     badge: "01 · Structural Engineering",
-    tag: "MO&A Ltd (Formerly Morgan Omonitan & Abe Ltd) · Engineering with Purpose",
+    tag: "· Engineering with Purpose",
     titleLine1: "Structural engineering.",
     titleLine2: "Lasting impact.",
     description:
@@ -35,7 +35,7 @@ const slides: ValuePropSlide[] = [
   {
     id: "consultancy",
     badge: "02 · Strategic Consultancy",
-    tag: "MO&A Ltd (Formerly Morgan Omonitan & Abe Ltd) · Strategic Advisory",
+    tag: " · Strategic Advisory",
     titleLine1: "Insightful consultancy.",
     titleLine2: "Informed decisions.",
     description:
@@ -119,12 +119,12 @@ export function HeroCarousel() {
           })}
         </div>
 
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide bg-black/40 border border-white/20 text-white backdrop-blur-md shadow-xs">
+        {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide bg-black/40 border border-white/20 text-white backdrop-blur-md shadow-xs">
           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
           <span className="font-semibold text-white">MO&amp;A Ltd</span>
           <span className="text-white/50 text-[11px]">&bull;</span>
           <span className="text-white/90 text-[11px] sm:text-xs">Formerly Morgan Omonitan &amp; Abe Ltd</span>
-        </div>
+        </div> */}
       </div>
 
       {/* Main Content Area */}

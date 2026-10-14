@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, type FormEvent } from "react";
-import { Download, ArrowUpRight } from "lucide-react";
+import { Download, ArrowUpRight, MapPin, Mail, Phone, Globe, Send } from "lucide-react";
 import { Button, Input, Label } from "@repo/ui";
 import { PageHeading } from "@/components/page-heading";
 
 export default function ContactPage() {
   const [isPrepared, setIsPrepared] = useState(false);
   const [enquiryText, setEnquiryText] = useState("");
+  const [mailtoLink, setMailtoLink] = useState("");
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,6 +23,11 @@ Subject: ${data.get("subject")}
 ${data.get("message")}`;
 
     setEnquiryText(summary);
+    setMailtoLink(
+      `mailto:info@moanigeria.com?subject=${encodeURIComponent(
+        `[Website Enquiry] ${data.get("subject")}: ${data.get("name")}`
+      )}&body=${encodeURIComponent(summary)}`
+    );
     setIsPrepared(true);
   }
 
@@ -45,26 +51,108 @@ ${data.get("message")}`;
       />
 
       <section className="py-20 sm:py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-24 items-start">
-          {/* Information & Ethos */}
-          <div className="space-y-6">
-            <span className="text-primary text-xs uppercase tracking-widest font-bold block">
-              Start something worthwhile
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight leading-tight">
-              Your ambition.
-              <br />
-              Our next conversation.
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Tell us a little about what you have in mind, and the expertise
-              you’re looking for.
-            </p>
-            <div className="border-l-2 border-primary/40 pl-4 py-2">
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Company contact details will be added soon. You can prepare and
-                download your enquiry here; messages are not yet sent to MO&A.
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20 items-start">
+          {/* Information & Ethos + Contact Details */}
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <span className="text-primary text-xs uppercase tracking-widest font-bold block">
+                Start something worthwhile
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-medium tracking-tight leading-tight">
+                Your ambition.
+                <br />
+                Our next conversation.
+              </h2>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Connect directly with our multidisciplinary team for engineering consultancy, structural advisory, project management, or development partnerships.
               </p>
+            </div>
+
+            {/* Direct Contact Cards */}
+            <div className="space-y-4 pt-2">
+              {/* Office Address */}
+              <div className="flex items-start gap-4 p-5 rounded-xs bg-secondary/60 border border-border">
+                <div className="p-2.5 rounded-xs bg-primary/10 text-primary shrink-0">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <div>
+                  <span className="text-xs uppercase font-bold tracking-wider text-muted-foreground block mb-1">
+                    Head Office &amp; Postal Address
+                  </span>
+                  <p className="text-sm font-semibold text-foreground">
+                    241, Igbosere Road, Lagos,
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    P.O Box 7121, Lagos, Nigeria
+                  </p>
+                </div>
+              </div>
+
+              {/* Phone Numbers */}
+              <div className="flex items-start gap-4 p-5 rounded-xs bg-secondary/60 border border-border">
+                <div className="p-2.5 rounded-xs bg-primary/10 text-primary shrink-0">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <div>
+                  <span className="text-xs uppercase font-bold tracking-wider text-muted-foreground block mb-1">
+                    Phone Inquiries
+                  </span>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm font-semibold">
+                    <a
+                      href="tel:+2348089137683"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      +234 (0) 808-913-7683
+                    </a>
+                    <span className="hidden sm:inline text-border">•</span>
+                    <a
+                      href="tel:+2349093608794"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      +234 (0) 909-360-8794
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Email & Website */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex items-start gap-3.5 p-4 rounded-xs bg-secondary/60 border border-border">
+                  <div className="p-2 rounded-xs bg-primary/10 text-primary shrink-0">
+                    <Mail className="h-4 w-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[11px] uppercase font-bold tracking-wider text-muted-foreground block">
+                      Email
+                    </span>
+                    <a
+                      href="mailto:info@moanigeria.com"
+                      className="text-xs sm:text-sm font-semibold text-foreground hover:text-primary transition-colors truncate block"
+                    >
+                      info@moanigeria.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 p-4 rounded-xs bg-secondary/60 border border-border">
+                  <div className="p-2 rounded-xs bg-primary/10 text-primary shrink-0">
+                    <Globe className="h-4 w-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[11px] uppercase font-bold tracking-wider text-muted-foreground block">
+                      Website
+                    </span>
+                    <a
+                      href="https://www.moanigeria.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs sm:text-sm font-semibold text-foreground hover:text-primary transition-colors truncate block"
+                    >
+                      www.moanigeria.com
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -157,7 +245,7 @@ ${data.get("message")}`;
                   Prepare enquiry <ArrowUpRight className="h-4 w-4 ml-2" />
                 </Button>
                 <p className="text-xs text-muted-foreground mt-3">
-                  Your details stay in this page and are not submitted or stored remotely.
+                  Your details stay secure and you can dispatch via your preferred mail client.
                 </p>
               </div>
             </form>
@@ -169,20 +257,30 @@ ${data.get("message")}`;
                 className="mt-8 p-6 border-l-4 border-primary bg-background shadow-xs animate-in fade-in duration-300"
               >
                 <h3 className="font-semibold text-foreground text-sm">
-                  Enquiry prepared successfully
+                  Enquiry formatted and ready
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1 mb-4 leading-relaxed">
-                  Your enquiry has been formatted and is ready. You can download
-                  a local copy to keep until MO&A’s direct mailbox is connected.
+                  Your message has been organized. Send it directly to <strong>info@moanigeria.com</strong> via your email app or download a local copy.
                 </p>
-                <Button
-                  onClick={handleDownload}
-                  variant="outline"
-                  size="sm"
-                  className="font-semibold border-border hover:bg-secondary inline-flex items-center gap-2"
-                >
-                  <Download className="h-4 w-4" /> Download enquiry (.txt)
-                </Button>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button
+                    asChild
+                    size="sm"
+                    className="bg-primary text-white hover:bg-primary/90 font-semibold inline-flex items-center gap-2"
+                  >
+                    <a href={mailtoLink}>
+                      <Send className="h-4 w-4" /> Send to info@moanigeria.com
+                    </a>
+                  </Button>
+                  <Button
+                    onClick={handleDownload}
+                    variant="outline"
+                    size="sm"
+                    className="font-semibold border-border hover:bg-secondary inline-flex items-center gap-2"
+                  >
+                    <Download className="h-4 w-4" /> Download enquiry (.txt)
+                  </Button>
+                </div>
               </div>
             )}
           </div>
