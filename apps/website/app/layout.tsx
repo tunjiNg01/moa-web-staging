@@ -15,7 +15,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://main.d1ic7480t1o1t4
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MO&A Ltd | Formerly Morgan Omonitan & Abe Ltd | Engineering & Consulting Firm",
+    default: "MO&A Ltd | Formerly Morgan Omonitan & Abe Ltd | Engineering, Consulting & Development Firm",
     template: "%s | MO&A Ltd",
   },
   description:

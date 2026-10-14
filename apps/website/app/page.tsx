@@ -20,10 +20,16 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Company Background & Regional Expansion */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-2">
-              <span className="text-primary text-xs uppercase tracking-widest font-bold block">
-                Engineering, Consulting &amp; Development Firm
-              </span>
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-primary text-xs uppercase tracking-widest font-bold block">
+                  Engineering, Consulting &amp; Development Firm
+                </span>
+                <span className="hidden sm:inline-block text-muted-foreground/40 text-xs">•</span>
+                <span className="inline-flex items-center text-xs font-semibold tracking-wide px-2.5 py-0.5 rounded-sm bg-primary/10 text-primary border border-primary/20">
+                  MO&amp;A Ltd &bull; Formerly Morgan Omonitan &amp; Abe Ltd
+                </span>
+              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-tight text-foreground">
                 Behind every great structure,
                 <br />
@@ -33,8 +39,8 @@ export default function HomePage() {
 
             <p className="text-base sm:text-lg text-foreground/90 leading-relaxed font-normal pt-2">
               <strong className="font-semibold text-foreground">MO&amp;A Ltd</strong>{" "}
-              <span className="text-muted-foreground font-normal text-sm sm:text-base">
-                (formerly Morgan Omonitan &amp; Abe Ltd)
+              <span className="text-muted-foreground font-semibold text-sm sm:text-base">
+                (Formerly Morgan Omonitan &amp; Abe Ltd)
               </span>
               , is an engineering, consulting &amp; development firm in Nigeria, with recent expansion to Ghana in West Africa.
             </p>

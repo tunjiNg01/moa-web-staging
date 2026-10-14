@@ -46,9 +46,9 @@ export default function AboutPage() {
   return (
     <div>
       <PageHeading
-        label="About MO&A Ltd"
+        label="About MO&A Ltd (Formerly Morgan Omonitan & Abe Ltd)"
         title="Engineering with purpose."
-        description="We are an engineering, consulting & development firm. Our work connects bold ideas with the technical thinking that makes them possible."
+        description="We are an engineering, consulting & development firm. Founded in 1972 as Morgan Omonitan & Abe Ltd, today our consultancy moves forward as MO&A Ltd."
       />
 
       {/* The Way We Think - Split Section */}
@@ -59,7 +59,7 @@ export default function AboutPage() {
               <span className="text-primary text-xs uppercase tracking-widest font-bold block">
                 The way we think
               </span>
-              <span className="inline-flex items-center text-[11px] font-semibold tracking-wide uppercase px-2.5 py-0.5 rounded-xs bg-primary/10 text-primary border border-primary/20">
+              <span className="inline-flex items-center text-xs font-semibold tracking-wide px-3 py-1 rounded-sm bg-primary/10 text-primary border border-primary/20">
                 MO&amp;A Ltd &bull; Formerly Morgan Omonitan &amp; Abe Ltd
               </span>
             </div>
@@ -69,7 +69,7 @@ export default function AboutPage() {
               A foundation for possibility.
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Founded in 1972 as Morgan Omonitan &amp; Abe Ltd, today our consultancy moves forward as <strong className="font-semibold text-foreground">MO&amp;A Ltd (formerly Morgan Omonitan &amp; Abe Ltd)</strong>. Every project begins with an ambition. Our role is to understand it, ask the right questions and find the structural approach that brings it to life.
+              Founded in 1972 as Morgan Omonitan &amp; Abe Ltd, today our consultancy moves forward as <strong className="font-semibold text-foreground">MO&amp;A Ltd (Formerly Morgan Omonitan &amp; Abe Ltd)</strong>. Every project begins with an ambition. Our role is to understand it, ask the right questions and find the structural approach that brings it to life.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               We value clear communication, considered decisions and close

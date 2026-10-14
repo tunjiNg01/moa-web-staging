@@ -78,15 +78,29 @@ export function SiteHeader() {
               />
             </div>
             <div
-              className={`hidden lg:block pl-4 border-l text-[10px] tracking-wider uppercase font-semibold leading-relaxed transition-colors ${
+              className={`hidden sm:flex flex-col justify-center pl-3 sm:pl-4 border-l transition-colors ${
                 isTransparent
-                  ? "border-white/30 text-white/85 group-hover:text-white"
-                  : "border-slate-200 text-slate-500 group-hover:text-slate-900"
+                  ? "border-white/30 text-white"
+                  : "border-slate-200 text-slate-900"
               }`}
             >
-              Engineering, Consulting
-              <br />
-              &amp; Development Firm
+              <div className="flex items-center gap-1.5 leading-tight">
+                <span className="font-bold text-sm sm:text-base tracking-tight">MO&amp;A Ltd</span>
+              </div>
+              <span
+                className={`text-[10.5px] leading-tight font-medium ${
+                  isTransparent ? "text-white/85" : "text-slate-600"
+                }`}
+              >
+                Formerly Morgan Omonitan &amp; Abe Ltd
+              </span>
+              <span
+                className={`text-[9px] uppercase tracking-wider font-semibold mt-0.5 ${
+                  isTransparent ? "text-white/75" : "text-primary"
+                }`}
+              >
+                Engineering, Consulting &amp; Development Firm
+              </span>
             </div>
           </Link>
 
@@ -194,6 +208,13 @@ export function SiteHeader() {
         {/* Mobile Drawer */}
         {isOpen && (
           <div className="md:hidden border-b border-slate-200 bg-white px-6 py-6 shadow-xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
+            <div className="mb-4 pb-4 border-b border-slate-100">
+              <span className="font-bold text-base text-slate-900 block leading-tight">MO&amp;A Ltd</span>
+              <span className="text-xs text-slate-500 font-medium block mt-0.5">Formerly Morgan Omonitan &amp; Abe Ltd</span>
+              <span className="text-[10px] uppercase font-semibold text-primary tracking-wider mt-1 block">
+                Engineering, Consulting &amp; Development Firm
+              </span>
+            </div>
             <nav className="flex flex-col gap-2 text-base font-semibold text-slate-800">
               {navLinks.map((link) => {
                 const isServicesLink = link.href === "/services";

@@ -22,7 +22,7 @@ const slides: ValuePropSlide[] = [
   {
     id: "engineering",
     badge: "01 · Structural Engineering",
-    tag: "MO&A · ENGINEERING WITH PURPOSE",
+    tag: "MO&A Ltd (Formerly Morgan Omonitan & Abe Ltd) · Engineering with Purpose",
     titleLine1: "Structural engineering.",
     titleLine2: "Lasting impact.",
     description:
@@ -35,7 +35,7 @@ const slides: ValuePropSlide[] = [
   {
     id: "consultancy",
     badge: "02 · Strategic Consultancy",
-    tag: "MO&A · STRATEGIC CONSULTANCY",
+    tag: "MO&A Ltd (Formerly Morgan Omonitan & Abe Ltd) · Strategic Advisory",
     titleLine1: "Insightful consultancy.",
     titleLine2: "Informed decisions.",
     description:
@@ -91,31 +91,40 @@ export function HeroCarousel() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Top slide selector pills */}
-      <div className="flex items-center gap-3">
-        {slides.map((slide, idx) => {
-          const isActive = idx === currentIndex;
-          return (
-            <button
-              key={slide.id}
-              type="button"
-              onClick={() => goToSlide(idx)}
-              aria-label={`Go to slide ${idx + 1}: ${slide.badge}`}
-              className={`group flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 border ${
-                isActive
-                  ? "bg-white/15 border-white/40 text-white backdrop-blur-xs shadow-xs"
-                  : "bg-black/20 border-white/10 text-white/60 hover:text-white hover:border-white/25"
-              }`}
-            >
-              <span
-                className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                  isActive ? "bg-primary" : "bg-white/40 group-hover:bg-white"
+      {/* Top slide selector pills + Rebrand Badge */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          {slides.map((slide, idx) => {
+            const isActive = idx === currentIndex;
+            return (
+              <button
+                key={slide.id}
+                type="button"
+                onClick={() => goToSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}: ${slide.badge}`}
+                className={`group flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 border ${
+                  isActive
+                    ? "bg-white/15 border-white/40 text-white backdrop-blur-xs shadow-xs"
+                    : "bg-black/20 border-white/10 text-white/60 hover:text-white hover:border-white/25"
                 }`}
-              />
-              <span>{slide.badge}</span>
-            </button>
-          );
-        })}
+              >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                    isActive ? "bg-primary" : "bg-white/40 group-hover:bg-white"
+                  }`}
+                />
+                <span>{slide.badge}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide bg-black/40 border border-white/20 text-white backdrop-blur-md shadow-xs">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+          <span className="font-semibold text-white">MO&amp;A Ltd</span>
+          <span className="text-white/50 text-[11px]">&bull;</span>
+          <span className="text-white/90 text-[11px] sm:text-xs">Formerly Morgan Omonitan &amp; Abe Ltd</span>
+        </div>
       </div>
 
       {/* Main Content Area */}

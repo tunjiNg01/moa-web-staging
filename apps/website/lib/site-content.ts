@@ -517,6 +517,27 @@ export interface NewsArticle {
 
 export const newsArticles: NewsArticle[] = [
   {
+    id: "corporate-transition-moa-ltd",
+    slug: "corporate-transition-moa-ltd",
+    title: "Morgan Omonitan & Abe Ltd Formally Transitions to MO&A Ltd",
+    category: "Company News",
+    summary:
+      "Honoring over 50 years of pioneering engineering excellence, Morgan Omonitan & Abe Ltd announces its formal corporate evolution to MO&A Ltd, reflecting multidisciplinary consulting and regional expansion.",
+    content: [
+      "Founded in 1972, Morgan Omonitan & Abe Ltd has earned an enduring reputation as one of West Africa's most respected civil, structural, and development consultancy institutions. Today, the firm proudly announces its official re-branding to MO&A Ltd.",
+      "The updated corporate identity reflects our progressive transition into an integrated Engineering, Consulting & Development Firm serving major institutional, commercial, industrial, and civic clients across Nigeria, Ghana, and the wider sub-region.",
+      "While our corporate name advances to MO&A Ltd (Formerly Morgan Omonitan & Abe Ltd), our founding ethos remains steadfast: delivering rigorous engineering integrity, world-class technical precision, and dedicated client partnerships that build a lasting built environment.",
+    ],
+    date: "October 2026",
+    readTime: "3 min read",
+    image: "/images/engineering-hero.jpg",
+    featured: true,
+    author: {
+      name: "Board of Directors",
+      role: "MO&A Ltd",
+    },
+  },
+  {
     id: "urban-infrastructure-west-africa",
     slug: "urban-infrastructure-west-africa",
     title: "The Future of High-Density Urban Infrastructure in West Africa",
