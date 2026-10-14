@@ -64,7 +64,7 @@ export function SiteHeader() {
             aria-label="MO&A Home"
           >
             <div
-              className={`relative w-24 h-10 sm:w-28 sm:h-12 flex items-center px-2 py-1 rounded transition-colors ${
+              className={`relative w-24 h-10 sm:w-13 sm:h-12 flex items-center  rounded transition-colors ${
                 isTransparent ? "bg-white/0 backdrop-blur-xs shadow-xs" : ""
               }`}
             >
@@ -73,7 +73,7 @@ export function SiteHeader() {
                 alt="MO&A"
                 width={112}
                 height={47}
-                className="object-contain w-auto h-auto max-h-10"
+                className="object-contain w-auto h-auto max-h-12"
                 priority
               />
             </div>
