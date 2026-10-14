@@ -13,11 +13,11 @@ applications:
           commands:
             - npx turbo run build --filter=website
       artifacts:
-        baseDirectory: apps/website/.next
+        baseDirectory: .next
         files:
           - '**/*'
       cache:
         paths:
-          - apps/website/.next/cache/**/*
+          - .next/cache/**/*
           - node_modules/**/*
           - .pnpm-store/**/*
