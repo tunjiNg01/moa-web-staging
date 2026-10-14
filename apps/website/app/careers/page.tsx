@@ -8,9 +8,9 @@ import { PageHeading } from "@/components/page-heading";
 import { ContactBand } from "@/components/contact-band";
 
 export const metadata: Metadata = {
-  title: "Careers & Opportunities | Join MO&A",
+  title: "Careers & Opportunities | Join MO&A Ltd",
   description:
-    "Explore engineering careers and opportunities at Morgan Omonitan & Abe Ltd (MO&A). Build lasting infrastructure across Nigeria and Ghana.",
+    "Explore engineering careers and opportunities at MO&A Ltd (formerly Morgan Omonitan & Abe Ltd). Build lasting infrastructure across Nigeria and Ghana.",
   alternates: {
     canonical: "/careers",
   },

@@ -566,7 +566,7 @@ export const newsArticles: NewsArticle[] = [
     summary:
       "Building on over 40 years of pioneering engineering in Nigeria, MO&A formalizes its cross-border consulting presence to support landmark infrastructure across Ghana.",
     content: [
-      "Morgan Omonitan & Abe Ltd (MO&A) is pleased to announce the formal expansion of its consultancy operations to Accra, Ghana, reinforcing our long-standing commitment to delivering premier engineering and development advisory throughout West Africa.",
+      "MO&A Ltd (formerly Morgan Omonitan & Abe Ltd) is pleased to announce the formal expansion of its consultancy operations to Accra, Ghana, reinforcing our long-standing commitment to delivering premier engineering and development advisory throughout West Africa.",
       "Having partnered on major cross-border commercial, industrial, and infrastructure assignments over past decades, the Accra presence provides local and multinational stakeholders with direct access to our multidisciplinary technical teams.",
       "As West Africa accelerates regional trade and urban development under the AfCFTA framework, MO&A remains positioned at the forefront of providing independent, world-class structural engineering and project management consultancy.",
     ],

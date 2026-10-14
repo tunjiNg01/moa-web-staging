@@ -11,14 +11,14 @@ import { ContactBand } from "@/components/contact-band";
 export const metadata: Metadata = {
   title: "About Us | Our Legacy, Leadership & Vision",
   description:
-    "Founded in 1972, Morgan Omonitan & Abe Ltd (MO&A) brings over 40 years of civil and structural engineering excellence to Nigeria, Ghana, and West Africa.",
+    "Founded in 1972, MO&A Ltd (formerly Morgan Omonitan & Abe Ltd) brings over 40 years of engineering, consulting & development excellence to Nigeria, Ghana, and West Africa.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About MO&A | Engineering Excellence Since 1972",
+    title: "About MO&A Ltd | Formerly Morgan Omonitan & Abe Ltd",
     description:
-      "Founded in 1972, Morgan Omonitan & Abe Ltd brings over 40 years of trusted structural engineering expertise across West Africa.",
+      "Founded in 1972, MO&A Ltd (formerly Morgan Omonitan & Abe Ltd) brings over 40 years of trusted engineering expertise across West Africa.",
     url: "/about",
     type: "website",
   },
@@ -46,7 +46,7 @@ export default function AboutPage() {
   return (
     <div>
       <PageHeading
-        label="About MO&A"
+        label="About MO&A Ltd"
         title="Engineering with purpose."
         description="We are an engineering, consulting & development firm. Our work connects bold ideas with the technical thinking that makes them possible."
       />
@@ -55,18 +55,21 @@ export default function AboutPage() {
       <section className="py-20 sm:py-24 bg-background border-b border-border">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="space-y-6">
-            <span className="text-primary text-xs uppercase tracking-widest font-bold block">
-              The way we think
-            </span>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-primary text-xs uppercase tracking-widest font-bold block">
+                The way we think
+              </span>
+              <span className="inline-flex items-center text-[11px] font-semibold tracking-wide uppercase px-2.5 py-0.5 rounded-xs bg-primary/10 text-primary border border-primary/20">
+                MO&amp;A Ltd &bull; Formerly Morgan Omonitan &amp; Abe Ltd
+              </span>
+            </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-tight">
               More than a structure.
               <br />
               A foundation for possibility.
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Every project begins with an ambition. Our role is to understand
-              it, ask the right questions and find the structural approach that
-              brings it to life.
+              Founded in 1972 as Morgan Omonitan &amp; Abe Ltd, today our consultancy moves forward as <strong className="font-semibold text-foreground">MO&amp;A Ltd (formerly Morgan Omonitan &amp; Abe Ltd)</strong>. Every project begins with an ambition. Our role is to understand it, ask the right questions and find the structural approach that brings it to life.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               We value clear communication, considered decisions and close

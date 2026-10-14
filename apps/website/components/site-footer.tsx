@@ -24,9 +24,12 @@ export function SiteFooter() {
               className="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity"
               aria-label="MO&A Home"
             >
-              MO&A
+              MO&A Ltd
             </Link>
-            <p className="mt-4 text-xs sm:text-sm text-white/70 max-w-xs leading-relaxed">
+            <p className="mt-1 text-[11px] uppercase tracking-wider text-white/60 font-medium">
+              Formerly Morgan Omonitan &amp; Abe Ltd
+            </p>
+            <p className="mt-3 text-xs sm:text-sm text-white/70 max-w-xs leading-relaxed">
               Thoughtful engineering.
               <br />
               Stronger structures. Lasting impact.
@@ -50,7 +53,7 @@ export function SiteFooter() {
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/50">
-          <span>© {currentYear} MO&A. All rights reserved.</span>
+          <span>© {currentYear} MO&A Ltd (Formerly Morgan Omonitan &amp; Abe Ltd). All rights reserved.</span>
           <span>Engineering, Consulting &amp; Development Firm</span>
         </div>
       </div>

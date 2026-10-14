@@ -15,12 +15,17 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://main.d1ic7480t1o1t4
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MO&A | Engineering, Consulting & Development Firm",
-    template: "%s | MO&A",
+    default: "MO&A Ltd | Formerly Morgan Omonitan & Abe Ltd | Engineering & Consulting Firm",
+    template: "%s | MO&A Ltd",
   },
   description:
-    "Morgan Omonitan & Abe Ltd (MO&A) is a premier engineering, consulting & development firm in Nigeria and Ghana, providing integrated engineering, project management, and independent expert advisory since 1972.",
+    "MO&A Ltd (formerly Morgan Omonitan & Abe Ltd) is a premier engineering, consulting & development firm in Nigeria and Ghana, providing integrated engineering, project management, and independent expert advisory since 1972.",
   keywords: [
+    "MO&A Ltd",
+    "formerly Morgan Omonitan & Abe Ltd",
+    "Morgan Omonitan & Abe Ltd",
+    "Morgan Omonitan & Abe",
+    "MO&A",
     "engineering consulting development firm",
     "structural engineering consultancy",
     "civil engineering Nigeria",
@@ -32,12 +37,10 @@ export const metadata: Metadata = {
     "feasibility studies engineering",
     "tender detailed design",
     "construction quality governance",
-    "MO&A",
-    "Morgan Omonitan & Abe",
   ],
-  authors: [{ name: "Morgan Omonitan & Abe Ltd (MO&A)", url: siteUrl }],
-  creator: "MO&A",
-  publisher: "MO&A",
+  authors: [{ name: "MO&A Ltd (formerly Morgan Omonitan & Abe Ltd)", url: siteUrl }],
+  creator: "MO&A Ltd",
+  publisher: "MO&A Ltd",
   formatDetection: {
     email: false,
     address: false,
@@ -52,11 +55,11 @@ export const metadata: Metadata = {
     apple: "/images/moa-logo.jpeg",
   },
   openGraph: {
-    title: "MO&A | Engineering, Consulting & Development Firm",
+    title: "MO&A Ltd | Formerly Morgan Omonitan & Abe Ltd",
     description:
-      "Thoughtful engineering. Stronger structures. Lasting impact. Serving Nigeria and Ghana since 1972.",
+      "Thoughtful engineering. Stronger structures. Lasting impact. Serving Nigeria and Ghana since 1972 as MO&A Ltd (formerly Morgan Omonitan & Abe Ltd).",
     url: siteUrl,
-    siteName: "MO&A - Morgan Omonitan & Abe Ltd",
+    siteName: "MO&A Ltd (Formerly Morgan Omonitan & Abe Ltd)",
     locale: "en_US",
     type: "website",
     images: [
@@ -64,13 +67,13 @@ export const metadata: Metadata = {
         url: "/images/moa-logo.jpeg",
         width: 1200,
         height: 630,
-        alt: "MO&A - Engineering, Consulting & Development Firm",
+        alt: "MO&A Ltd - Formerly Morgan Omonitan & Abe Ltd",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MO&A | Engineering, Consulting & Development Firm",
+    title: "MO&A Ltd | Formerly Morgan Omonitan & Abe Ltd",
     description:
       "Thoughtful engineering. Stronger structures. Lasting impact across West Africa.",
     images: ["/images/moa-logo.jpeg"],
@@ -91,13 +94,18 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "Morgan Omonitan & Abe Ltd (MO&A)",
-  "alternateName": "MO&A",
+  "name": "MO&A Ltd",
+  "legalName": "MO&A Ltd",
+  "alternateName": [
+    "Morgan Omonitan & Abe Ltd",
+    "MO&A",
+    "Morgan Omonitan & Abe",
+  ],
   "url": siteUrl,
   "logo": `${siteUrl}/images/moa-logo.jpeg`,
   "image": `${siteUrl}/images/moa-logo.jpeg`,
   "description":
-    "Premier engineering, consulting & development firm delivering integrated engineering, project management, and independent expert services across Nigeria and West Africa.",
+    "MO&A Ltd (formerly Morgan Omonitan & Abe Ltd) is a premier engineering, consulting & development firm delivering integrated engineering, project management, and independent expert services across Nigeria and West Africa.",
   "foundingDate": "1972",
   "address": {
     "@type": "PostalAddress",
