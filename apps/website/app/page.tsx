@@ -101,7 +101,7 @@ export default function HomePage() {
               </Link>
             </Button>
           </div>
-
+//
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.slice(0, 3).map((service, index) => (
               <article
