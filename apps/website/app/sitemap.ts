@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { services, projects, getAllNews } from "@/lib/site-content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://moa-engineering.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://main.d1ic7480t1o1t4.amplifyapp.com";
   const now = new Date();
 
   // Static routes

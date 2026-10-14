@@ -10,7 +10,7 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://moa-engineering.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://main.d1ic7480t1o1t4.amplifyapp.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
