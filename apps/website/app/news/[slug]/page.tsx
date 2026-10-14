@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Calendar, Clock, Share2 } from "lucide-react";
 import { Button } from "@repo/ui";
@@ -16,6 +17,54 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const article = getNewsArticle(slug);
+
+  if (!article) {
+    return {
+      title: "Article Not Found",
+    };
+  }
+
+  return {
+    title: `${article.title} | News & Foresight`,
+    description: article.summary,
+    keywords: [
+      article.category,
+      "engineering foresight",
+      "sustainable infrastructure",
+      "MO&A insights",
+      article.title,
+    ],
+    alternates: {
+      canonical: `/news/${article.slug}`,
+    },
+    openGraph: {
+      title: `${article.title} | MO&A Foresight`,
+      description: article.summary,
+      type: "article",
+      publishedTime: article.date,
+      authors: [article.author.name],
+      url: `/news/${article.slug}`,
+      images: [
+        {
+          url: article.image,
+          width: 1200,
+          height: 675,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${article.title} | MO&A`,
+      description: article.summary,
+      images: [article.image],
+    },
+  };
 }
 
 export default async function NewsArticlePage({ params }: PageProps) {

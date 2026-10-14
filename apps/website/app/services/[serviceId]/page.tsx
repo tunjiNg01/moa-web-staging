@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, CheckCircle2, ShieldCheck, FileCheck, Layers } from "lucide-react";
 import { Button } from "@repo/ui";
@@ -15,6 +16,44 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: Promise<{ serviceId: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { serviceId } = await params;
+  const service = getService(serviceId);
+
+  if (!service) {
+    return {
+      title: "Service Not Found",
+    };
+  }
+
+  return {
+    title: `${service.title} | Engineering Services`,
+    description: service.description,
+    keywords: [
+      service.title,
+      service.category,
+      "MO&A engineering",
+      "structural engineering Nigeria",
+      "consultancy services",
+      ...service.details.slice(0, 3),
+    ],
+    alternates: {
+      canonical: `/services/${service.id}`,
+    },
+    openGraph: {
+      title: `${service.title} | MO&A Engineering Services`,
+      description: service.description,
+      type: "website",
+      url: `/services/${service.id}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} | MO&A`,
+      description: service.description,
+    },
+  };
 }
 
 export default async function ServiceDetailPage({ params }: PageProps) {

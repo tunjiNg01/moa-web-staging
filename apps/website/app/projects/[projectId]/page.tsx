@@ -34,6 +34,37 @@ export async function generateMetadata({
   return {
     title: `${project.title} | Case study`,
     description: project.description,
+    keywords: [
+      project.title,
+      project.category,
+      project.focus,
+      "structural case study",
+      "MO&A engineering projects",
+      "civil engineering Nigeria",
+    ],
+    alternates: {
+      canonical: `/projects/${project.id}`,
+    },
+    openGraph: {
+      title: `${project.title} | MO&A Project Case Study`,
+      description: project.description,
+      type: "article",
+      url: `/projects/${project.id}`,
+      images: [
+        {
+          url: project.image,
+          width: 1200,
+          height: 675,
+          alt: project.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | MO&A`,
+      description: project.description,
+      images: [project.image],
+    },
   };
 }
 

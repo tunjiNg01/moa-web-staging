@@ -9,9 +9,19 @@ import { ServicesDirectory } from "@/components/services-directory";
 import { ContactBand } from "@/components/contact-band";
 
 export const metadata: Metadata = {
-  title: "Our Services",
+  title: "Engineering Services | 12 Disciplines of Excellence",
   description:
-    "Explore MO&A's 12 professional engineering disciplines including feasibility, detailed design, value engineering, construction audit, and expert advisory.",
+    "Explore MO&A's 12 specialized engineering disciplines across Nigeria and Ghana: feasibility studies, tender detailed design, value engineering, construction audit, and expert advisory.",
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    title: "Engineering Services | MO&A",
+    description:
+      "Explore MO&A's 12 integrated engineering disciplines from feasibility through construction supervision.",
+    url: "/services",
+    type: "website",
+  },
 };
 
 export default function ServicesPage() {

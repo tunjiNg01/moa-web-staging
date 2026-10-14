@@ -8,9 +8,19 @@ import { PageHeading } from "@/components/page-heading";
 import { ContactBand } from "@/components/contact-band";
 
 export const metadata: Metadata = {
-  title: "Careers",
+  title: "Careers & Opportunities | Join MO&A",
   description:
-    "Explore a future in structural engineering with MO&A and express your interest in joining our consultancy.",
+    "Explore engineering careers and opportunities at Morgan Omonitan & Abe Ltd (MO&A). Build lasting infrastructure across Nigeria and Ghana.",
+  alternates: {
+    canonical: "/careers",
+  },
+  openGraph: {
+    title: "Careers at MO&A | Build Your Future in Engineering",
+    description:
+      "Explore engineering career opportunities at MO&A across Nigeria and Ghana.",
+    url: "/careers",
+    type: "website",
+  },
 };
 
 export default function CareersPage() {

@@ -5,9 +5,19 @@ import { ProjectGallery } from "@/components/project-gallery";
 import { ContactBand } from "@/components/contact-band";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Featured Projects & Structural Case Studies",
   description:
-    "Explore structural engineering possibilities across public, commercial and residential environments with MO&A.",
+    "Explore MO&A's landmark civil and structural engineering projects across civic, commercial, and residential sectors in Nigeria and West Africa.",
+  alternates: {
+    canonical: "/projects",
+  },
+  openGraph: {
+    title: "Projects & Engineering Case Studies | MO&A",
+    description:
+      "Landmark civil and structural engineering projects delivered across public, commercial, and residential sectors by MO&A.",
+    url: "/projects",
+    type: "website",
+  },
 };
 
 export default function ProjectsPage() {

@@ -9,9 +9,19 @@ import { TeamSection } from "@/components/team-section";
 import { ContactBand } from "@/components/contact-band";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Us | Our Legacy, Leadership & Vision",
   description:
-    "Meet MO&A, a structural engineering consultancy focused on considered design, collaboration and the lasting value of the built environment.",
+    "Founded in 1972, Morgan Omonitan & Abe Ltd (MO&A) brings over 40 years of civil and structural engineering excellence to Nigeria, Ghana, and West Africa.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About MO&A | Engineering Excellence Since 1972",
+    description:
+      "Founded in 1972, Morgan Omonitan & Abe Ltd brings over 40 years of trusted structural engineering expertise across West Africa.",
+    url: "/about",
+    type: "website",
+  },
 };
 
 const values = [
