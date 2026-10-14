@@ -85,9 +85,6 @@ export function HeroParallaxSection() {
           className="absolute inset-0 w-full h-full object-cover object-center scale-105"
         >
           <source src="/videos/hero-bg-optimized.webm" type="video/webm" />
-          <source src="/videos/hero-bg-optimized.mp4" type="video/mp4" />
-          <source src="/videos/hero-bg-720p.mp4" type="video/mp4" />
-          <source src="/videos/hero-background.webm" type="video/webm" />
           {/* Fallback image */}
           <Image
             src="/images/engineering-hero.jpg"
