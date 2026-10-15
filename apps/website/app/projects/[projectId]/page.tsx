@@ -173,8 +173,7 @@ export default async function ProjectCaseStudyPage({
             </dl>
 
             <p className="text-xs text-muted-foreground mt-8 leading-relaxed">
-              Concept imagery and draft case-study content. Not a completed MO&A
-              commission.
+              Concept imagery and draft case-study content. Not a completed <span className="font-serif font-bold">MO&amp;A</span> commission.
             </p>
           </aside>
 

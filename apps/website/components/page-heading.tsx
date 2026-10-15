@@ -5,9 +5,9 @@ export function PageHeading({
   title,
   description,
 }: {
-  label: string;
-  title: string;
-  description: string;
+  label: React.ReactNode;
+  title: React.ReactNode;
+  description: React.ReactNode;
 }) {
   return (
     <section className="border-b border-border py-16 sm:py-20 bg-background">

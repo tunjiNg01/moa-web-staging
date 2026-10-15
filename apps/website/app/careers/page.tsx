@@ -27,7 +27,7 @@ export default function CareersPage() {
   return (
     <div>
       <PageHeading
-        label="Careers at MO&A"
+        label={<>Careers at <span className="font-serif font-bold">MO&amp;A</span></>}
         title="Bring your thinking. Build your future."
         description="Good engineering starts with curious minds. If you care about the built environment and enjoy finding thoughtful solutions, we’d like to hear from you."
       />

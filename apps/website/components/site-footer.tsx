@@ -116,7 +116,7 @@ export function SiteFooter() {
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/50">
-          <span>© {currentYear} MO&A Ltd (Formerly Morgan Omonitan &amp; Abe Ltd). All rights reserved.</span>
+          <span>© {currentYear} <span className="font-serif font-bold text-white/80">MO&A Ltd</span> (Formerly Morgan Omonitan &amp; Abe Ltd). All rights reserved.</span>
           <span>Engineering, Consulting &amp; Development Firm</span>
         </div>
       </div>

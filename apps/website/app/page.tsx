@@ -36,7 +36,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-base sm:text-lg text-foreground/90 leading-relaxed font-normal pt-2">
-              <strong className="font-semibold text-foreground">MO&amp;A Ltd</strong>{" "}
+              <strong className="font-serif font-bold text-foreground text-lg sm:text-xl">MO&amp;A Ltd</strong>{" "}
               <span className="text-muted-foreground font-semibold text-sm sm:text-base">
                 (Formerly Morgan Omonitan &amp; Abe Ltd)
               </span>
@@ -44,11 +44,11 @@ export default function HomePage() {
             </p>
 
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Founded in 1972, <strong className="font-semibold text-foreground">MO&amp;A Ltd</strong> has over 40 years of experience and expertise in providing integrated engineering &amp; development consulting services such as civil &amp; structural engineering, project management and independent expert services to the private &amp; public sectors. <strong className="font-semibold text-foreground">MO&amp;A Ltd</strong> has built a legacy of several successfully executed projects and partnerships with clients and stakeholders.
+              Founded in 1972, <strong className="font-serif font-bold text-foreground">MO&amp;A Ltd</strong> has over 40 years of experience and expertise in providing integrated engineering &amp; development consulting services such as civil &amp; structural engineering, project management and independent expert services to the private &amp; public sectors. <strong className="font-serif font-bold text-foreground">MO&amp;A Ltd</strong> has built a legacy of several successfully executed projects and partnerships with clients and stakeholders.
             </p>
 
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              <strong className="font-semibold text-foreground">MO&amp;A Ltd</strong> continues to evolve and expand to accomplish ground breaking projects and developments in Nigeria and within the region.{" "}
+              <strong className="font-serif font-bold text-foreground">MO&amp;A Ltd</strong> continues to evolve and expand to accomplish ground breaking projects and developments in Nigeria and within the region.{" "}
               <Link
                 href="/about"
                 className="inline-flex items-center gap-1 font-semibold text-primary hover:underline ml-1"

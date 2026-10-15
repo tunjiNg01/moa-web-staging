@@ -85,7 +85,7 @@ export function SiteHeader() {
               }`}
             >
               <div className="flex items-center gap-1.5 leading-tight">
-                <span className="font-bold text-sm sm:text-base tracking-tight">MO&amp;A Ltd</span>
+                <span className="font-serif font-bold text-base sm:text-lg tracking-tight">MO&amp;A Ltd</span>
               </div>
               <span
                 className={`text-[10.5px] leading-tight font-medium ${
@@ -209,7 +209,7 @@ export function SiteHeader() {
         {isOpen && (
           <div className="md:hidden border-b border-slate-200 bg-white px-6 py-6 shadow-xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
             <div className="mb-4 pb-4 border-b border-slate-100">
-              <span className="font-bold text-base text-slate-900 block leading-tight">MO&amp;A Ltd</span>
+              <span className="font-serif font-bold text-lg text-slate-900 block leading-tight">MO&amp;A Ltd</span>
               <span className="text-xs text-slate-500 font-medium block mt-0.5">Formerly Morgan Omonitan &amp; Abe Ltd</span>
               <span className="text-[10px] uppercase font-semibold text-primary tracking-wider mt-1 block">
                 Engineering, Consulting &amp; Development Firm
