@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Button } from "@repo/ui";
 import { ContactBand } from "@/components/contact-band";
+import { MoaBrand } from "@/components/moa-brand";
 import {
   getCaseStudy,
   projects,
@@ -173,7 +174,7 @@ export default async function ProjectCaseStudyPage({
             </dl>
 
             <p className="text-xs text-muted-foreground mt-8 leading-relaxed">
-              Concept imagery and draft case-study content. Not a completed <span className="font-serif font-bold">MO&amp;A</span> commission.
+              Concept imagery and draft case-study content. Not a completed <MoaBrand className="font-bold" /> commission.
             </p>
           </aside>
 

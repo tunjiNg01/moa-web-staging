@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowUpRight, Calendar, Clock, Share2 } from "lucide-react";
 import { Button } from "@repo/ui";
 import { getAllNews, getNewsArticle } from "@/lib/site-content";
 import { ContactBand } from "@/components/contact-band";
+import { MoaBrand } from "@/components/moa-brand";
 
 export async function generateStaticParams() {
   const articles = getAllNews();
@@ -121,7 +122,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
               </p>
             </div>
             <div className="text-xs text-muted-foreground font-mono">
-              MO&amp;A Technical Publications
+              <MoaBrand className="font-semibold text-foreground" /> Technical Publications
             </div>
           </div>
         </div>

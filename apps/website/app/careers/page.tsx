@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@repo/ui";
 import { PageHeading } from "@/components/page-heading";
 import { ContactBand } from "@/components/contact-band";
+import { MoaBrand } from "@/components/moa-brand";
 
 export const metadata: Metadata = {
   title: "Careers & Opportunities | Join MO&A Ltd",
@@ -27,7 +28,7 @@ export default function CareersPage() {
   return (
     <div>
       <PageHeading
-        label={<>Careers at <span className="font-serif font-bold">MO&amp;A</span></>}
+        label={<>Careers at <MoaBrand className="font-bold" /></>}
         title="Bring your thinking. Build your future."
         description="Good engineering starts with curious minds. If you care about the built environment and enjoy finding thoughtful solutions, we’d like to hear from you."
       />

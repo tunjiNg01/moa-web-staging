@@ -210,3 +210,11 @@ body {
 .font-dutch {
   font-family: var(--font-dutch), "Dutch 801", Georgia, serif;
 }
+
+/* Proportional ampersand mirroring official MO&A logo */
+.moa-amp {
+  font-size: 0.8em;
+  display: inline-block;
+  vertical-align: baseline;
+  margin: 0 0.015em;
+}

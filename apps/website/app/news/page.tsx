@@ -7,6 +7,7 @@ import { ArrowUpRight, Calendar, Clock } from "lucide-react";
 import { Button } from "@repo/ui";
 import { getAllNews, NewsArticle } from "@/lib/site-content";
 import { ContactBand } from "@/components/contact-band";
+import { MoaBrand } from "@/components/moa-brand";
 
 const categories = [
   "All",
@@ -37,7 +38,7 @@ export default function NewsPage() {
             News &amp; Foresight.
           </h1>
           <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-            Thought leadership from MO&amp;A’s engineers and consultants. We examine future structural challenges, low-carbon materials, and the evolving infrastructure landscape across West Africa and beyond.
+            Thought leadership from <MoaBrand className="font-semibold text-foreground" />’s engineers and consultants. We examine future structural challenges, low-carbon materials, and the evolving infrastructure landscape across West Africa and beyond.
           </p>
 
           {/* Category Tabs */}

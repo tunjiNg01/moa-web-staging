@@ -7,6 +7,7 @@ import { Button } from "@repo/ui";
 import { PageHeading } from "@/components/page-heading";
 import { TeamSection } from "@/components/team-section";
 import { ContactBand } from "@/components/contact-band";
+import { MoaBrand } from "@/components/moa-brand";
 
 export const metadata: Metadata = {
   title: "About Us | Our Legacy, Leadership & Vision",
@@ -46,9 +47,9 @@ export default function AboutPage() {
   return (
     <div>
       <PageHeading
-        label={<>About <span className="font-serif font-bold">MO&amp;A Ltd</span> (Formerly Morgan Omonitan &amp; Abe Ltd)</>}
+        label={<>About <MoaBrand withLtd className="font-bold" /> (Formerly Morgan Omonitan &amp; Abe Ltd)</>}
         title="Engineering with purpose."
-        description={<>We are an engineering, consulting &amp; development firm. Founded in 1972 as Morgan Omonitan &amp; Abe Ltd, today our consultancy moves forward as <span className="font-serif font-bold text-foreground">MO&amp;A Ltd</span>.</>}
+        description={<>We are an engineering, consulting &amp; development firm. Founded in 1972 as Morgan Omonitan &amp; Abe Ltd, today our consultancy moves forward as <MoaBrand withLtd className="font-bold text-foreground" />.</>}
       />
 
       {/* The Way We Think - Split Section */}
@@ -60,7 +61,7 @@ export default function AboutPage() {
                 The way we think
               </span>
               <span className="inline-flex items-center text-xs font-semibold tracking-wide px-3 py-1 rounded-sm bg-primary/10 text-primary border border-primary/20">
-                <span className="font-serif font-bold">MO&amp;A Ltd</span> &bull; Formerly Morgan Omonitan &amp; Abe Ltd
+                <MoaBrand withLtd className="font-bold" /> &bull; Formerly Morgan Omonitan &amp; Abe Ltd
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-tight">
@@ -69,7 +70,7 @@ export default function AboutPage() {
               A foundation for possibility.
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Founded in 1972 as Morgan Omonitan &amp; Abe Ltd, today our consultancy moves forward as <strong className="font-semibold text-foreground"><span className="font-serif font-bold">MO&amp;A Ltd</span> (Formerly Morgan Omonitan &amp; Abe Ltd)</strong>. Every project begins with an ambition. Our role is to understand it, ask the right questions and find the structural approach that brings it to life.
+              Founded in 1972 as Morgan Omonitan &amp; Abe Ltd, today our consultancy moves forward as <strong className="font-semibold text-foreground"><MoaBrand withLtd className="font-bold" /> (Formerly Morgan Omonitan &amp; Abe Ltd)</strong>. Every project begins with an ambition. Our role is to understand it, ask the right questions and find the structural approach that brings it to life.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               We value clear communication, considered decisions and close

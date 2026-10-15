@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight, X, Mail } from "lucide-react";
 import { getAllTeamMembers, TeamMember } from "@/lib/site-content";
+import { MoaBrand } from "./moa-brand";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -63,7 +64,7 @@ export function TeamSection({
             </h2>
           </div>
           <p className="max-w-md text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Good engineering is a shared effort. Meet the directors and principal engineers steering MO&amp;A’s technical advisory across Nigeria and West Africa.
+            Good engineering is a shared effort. Meet the directors and principal engineers steering <MoaBrand className="font-semibold text-foreground" />’s technical advisory across Nigeria and West Africa.
           </p>
         </div>
 

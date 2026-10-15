@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowUpRight, CheckCircle2, ShieldCheck, FileCheck, Layers }
 import { Button } from "@repo/ui";
 import { services, getService, getCaseStudy, Service } from "@/lib/site-content";
 import { ContactBand } from "@/components/contact-band";
+import { MoaBrand } from "@/components/moa-brand";
 
 export async function generateStaticParams() {
   return services.map((service) => ({
@@ -198,7 +199,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 Need consultation on {service.title}?
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Connect directly with MO&amp;A’s structural directors to scope your project requirements and receive preliminary guidance.
+                Connect directly with <MoaBrand className="font-semibold text-foreground" />’s structural directors to scope your project requirements and receive preliminary guidance.
               </p>
               <Button
                 asChild

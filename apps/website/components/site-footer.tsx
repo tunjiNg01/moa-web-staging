@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { MapPin, Mail, Phone, Globe } from "lucide-react";
+import { MoaBrand } from "./moa-brand";
 
 const footerLinks = [
   { href: "/", label: "Home" },
@@ -23,10 +24,10 @@ export function SiteFooter() {
           <div className="lg:col-span-4">
             <Link
               href="/"
-              className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity"
+              className="text-3xl sm:text-4xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity block"
               aria-label="MO&A Home"
             >
-              MO&A Ltd
+              <MoaBrand withLtd />
             </Link>
             <p className="mt-1 text-[11px] uppercase tracking-wider text-white/60 font-medium">
               Formerly Morgan Omonitan &amp; Abe Ltd
@@ -116,7 +117,7 @@ export function SiteFooter() {
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/50">
-          <span>© {currentYear} <span className="font-serif font-bold text-white/80">MO&A Ltd</span> (Formerly Morgan Omonitan &amp; Abe Ltd). All rights reserved.</span>
+          <span>© {currentYear} <MoaBrand withLtd className="font-bold text-white/80" /> (Formerly Morgan Omonitan &amp; Abe Ltd). All rights reserved.</span>
           <span>Engineering, Consulting &amp; Development Firm</span>
         </div>
       </div>
