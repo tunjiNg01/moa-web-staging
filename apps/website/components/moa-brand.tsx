@@ -27,7 +27,7 @@ export function MoaBrand({
       MO<span
         className={`text-[0.8em] inline-block align-baseline mx-[0.015em] ${ampClassName}`}
         aria-hidden="true"
-      >&amp;</span><span className="sr-only">&amp;</span>A{withLtd && <span className={ltdClassName}>&nbsp;Ltd</span>}
+      >&amp;</span><span className="sr-only">&amp;</span>A{withLtd && <span className={`ml-1.5 ${ltdClassName}`}>Ltd</span>}
     </span>
   );
 }
