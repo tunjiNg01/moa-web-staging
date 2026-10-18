@@ -9,6 +9,8 @@ import {
   Newspaper,
   Briefcase,
   Users,
+  FileSpreadsheet,
+  Wrench,
   ShieldCheck,
   ExternalLink,
   Sliders,
@@ -33,18 +35,24 @@ export function AdminSidebar({ onNavigate, className = "" }: AdminSidebarProps) 
       href: "/",
       icon: LayoutDashboard,
       badge: null,
+      lineThrough: false,
+      disabled: false,
     },
     {
       label: "Projects & Cases",
       href: "/projects",
       icon: Building2,
       badge: "4",
+      lineThrough: false,
+      disabled: false,
     },
     {
       label: "News & Foresight",
       href: "/news",
       icon: Newspaper,
       badge: "4",
+      lineThrough: false,
+      disabled: false,
     },
     {
       label: "Careers & ATS",
@@ -52,12 +60,32 @@ export function AdminSidebar({ onNavigate, className = "" }: AdminSidebarProps) 
       icon: Briefcase,
       badge: "13 new",
       highlightBadge: true,
+      lineThrough: false,
+      disabled: false,
+    },
+    {
+      label: "Tender Management",
+      href: "/tenders",
+      icon: FileSpreadsheet,
+      badge: "Soon",
+      lineThrough: true,
+      disabled: true,
+    },
+    {
+      label: "Tools Management",
+      href: "/tools",
+      icon: Wrench,
+      badge: "Soon",
+      lineThrough: true,
+      disabled: true,
     },
     {
       label: "Admin Users",
       href: "/users",
       icon: Users,
       badge: "4",
+      lineThrough: false,
+      disabled: false,
     },
   ];
 
@@ -121,14 +149,14 @@ export function AdminSidebar({ onNavigate, className = "" }: AdminSidebarProps) 
             <nav className="space-y-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const active = isActive(item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onNavigate}
+                const active = !item.disabled && isActive(item.href);
+
+                const itemContent = (
+                  <div
                     className={`flex items-center justify-between px-3 py-2.5 rounded-xs text-xs font-medium transition-all group ${
-                      active
+                      item.disabled
+                        ? "text-[#666063] cursor-not-allowed select-none"
+                        : active
                         ? "bg-[#70333A] text-white shadow-sm font-semibold"
                         : "text-[#b0a9ab] hover:text-white hover:bg-[#201d1f]"
                     }`}
@@ -136,18 +164,30 @@ export function AdminSidebar({ onNavigate, className = "" }: AdminSidebarProps) 
                     <div className="flex items-center gap-3 min-w-0">
                       <Icon
                         className={`size-4 shrink-0 transition-colors ${
-                          active
+                          item.disabled
+                            ? "text-[#4d474a]"
+                            : active
                             ? "text-white"
                             : "text-[#7f787b] group-hover:text-white"
                         }`}
                       />
-                      <span className="truncate">{item.label}</span>
+                      <span
+                        className={`truncate ${
+                          item.lineThrough
+                            ? "line-through decoration-[#70333A] decoration-2 text-[#787175]"
+                            : ""
+                        }`}
+                      >
+                        {item.label}
+                      </span>
                     </div>
 
                     {item.badge && (
                       <span
                         className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-xs ${
-                          active
+                          item.disabled
+                            ? "bg-[#201d1f] text-[#6b6467] border border-[#2d282b]"
+                            : active
                             ? "bg-white/20 text-white"
                             : item.highlightBadge
                             ? "bg-[#70333A]/80 text-[#ffd5d9]"
@@ -157,6 +197,27 @@ export function AdminSidebar({ onNavigate, className = "" }: AdminSidebarProps) 
                         {item.badge}
                       </span>
                     )}
+                  </div>
+                );
+
+                if (item.disabled) {
+                  return (
+                    <div
+                      key={item.label}
+                      title={`${item.label} (Planned Module)`}
+                    >
+                      {itemContent}
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onNavigate}
+                  >
+                    {itemContent}
                   </Link>
                 );
               })}
@@ -234,12 +295,13 @@ export function AdminSidebar({ onNavigate, className = "" }: AdminSidebarProps) 
               </div>
             </div>
           </div>
-          <button
+          <Link
+            href="/login"
             title="Log out"
             className="p-1.5 text-[#7f787b] hover:text-white hover:bg-[#262224] rounded-xs transition-colors"
           >
             <LogOut className="size-3.5" />
-          </button>
+          </Link>
         </div>
       </div>
     </aside>

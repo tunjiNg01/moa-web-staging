@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import { AdminSidebar } from "./admin-sidebar";
 import { AdminHeader } from "./admin-header";
 import { Sheet, SheetContent } from "@repo/ui";
@@ -11,6 +12,11 @@ interface AdminShellProps {
 
 export function AdminShell({ children }: AdminShellProps) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname === "/login" || pathname.startsWith("/login")) {
+    return <main className="min-h-screen">{children}</main>;
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
