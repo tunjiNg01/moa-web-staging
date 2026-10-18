@@ -62,19 +62,31 @@ export default function LoginPage() {
           <div className="absolute inset-0 bg-[#70333A]/15 mix-blend-multiply" />
         </div>
 
-        {/* Top: Monogram & Identity */}
+        {/* Top: Official MO&A Logo */}
         <div className="relative z-10">
-          <Link href="/" className="inline-flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xs bg-[#70333A] text-white flex items-center justify-center font-bold shadow-lg shadow-[#70333A]/30">
-              <span className="font-serif text-xl tracking-wider">M</span>
+          <Link href="/" className="inline-flex items-center gap-3.5 group">
+            <div className="relative h-12 flex items-center rounded-xs overflow-hidden shadow-md shadow-black/40">
+              <Image
+                src="/images/moa-logo.png"
+                alt="MO&A Logo"
+                width={140}
+                height={44}
+                className="h-11 w-auto object-contain rounded-xs"
+                priority
+              />
             </div>
-            <div>
-              <div className="font-serif text-lg font-bold text-white tracking-tight leading-none">
-                MO&amp;A Ltd
+            <div className="flex flex-col justify-center pl-3.5 border-l border-white/20">
+              <div className="flex items-center gap-2 leading-none">
+                <span className="font-serif text-base font-bold text-white tracking-tight">
+                  MO&amp;A Ltd
+                </span>
+                <span className="text-[10px] font-medium tracking-wide uppercase px-1.5 py-0.5 rounded-xs bg-[#2e1d21] text-[#d48c95] border border-[#522930]">
+                  Admin
+                </span>
               </div>
-              <div className="text-[11px] text-[#b3acae] tracking-wider uppercase font-sans mt-0.5">
-                Formerly Morgan Omonitan &amp; Abe
-              </div>
+              <span className="text-[11px] text-[#b3acae] tracking-wider uppercase font-sans mt-1">
+                Formerly Morgan Omonitan &amp; Abe Ltd
+              </span>
             </div>
           </Link>
         </div>
@@ -120,10 +132,17 @@ export default function LoginPage() {
         {/* Top Navigation */}
         <div className="flex items-center justify-between">
           <div className="lg:hidden flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xs bg-[#70333A] text-white flex items-center justify-center font-bold">
-              <span className="font-serif text-base">M</span>
+            <div className="relative h-7 flex items-center rounded-xs overflow-hidden">
+              <Image
+                src="/images/moa-logo.png"
+                alt="MO&A Logo"
+                width={85}
+                height={26}
+                className="h-6 w-auto object-contain rounded-xs"
+                priority
+              />
             </div>
-            <span className="font-serif font-bold text-white text-sm">MO&amp;A Ltd</span>
+            <span className="font-serif font-bold text-white text-xs">Admin Hub</span>
           </div>
 
           <a

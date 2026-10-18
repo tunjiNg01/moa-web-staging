@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -121,8 +122,15 @@ export function AdminSidebar({ onNavigate, className = "" }: AdminSidebarProps) 
             onClick={onNavigate}
             className="flex items-center gap-3 group transition-transform active:scale-98"
           >
-            <div className="w-9 h-9 rounded-xs bg-[#70333A] text-white flex items-center justify-center font-bold shadow-md shadow-[#70333A]/20 transition-all group-hover:brightness-110">
-              <span className="font-serif text-lg tracking-wider">M</span>
+            <div className="relative h-9 flex items-center rounded-xs overflow-hidden shadow-xs shrink-0">
+              <Image
+                src="/images/moa-logo.png"
+                alt="MO&A Logo"
+                width={100}
+                height={32}
+                className="h-8 w-auto object-contain rounded-xs"
+                priority
+              />
             </div>
             <div className="flex flex-col leading-none">
               <div className="flex items-center gap-1.5">
