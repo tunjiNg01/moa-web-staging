@@ -389,8 +389,6 @@ export function RichTextEditor({
           <span>{wordCount} Words</span>
           <span>•</span>
           <span>{charCount} Characters</span>
-          <span>•</span>
-          <span className="text-[10px] text-primary font-bold">Powered by Tiptap</span>
         </div>
         <div className="flex items-center gap-1.5">
           <Sparkles className="size-3 text-primary" />
