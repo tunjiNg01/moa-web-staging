@@ -634,3 +634,4 @@ export function CandidateReviewModal({
     </Dialog>
   );
 }
+
