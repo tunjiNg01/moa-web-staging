@@ -14,21 +14,40 @@ import {
   CheckCircle2,
   AlertCircle,
   FileText,
+  Clock,
+  Sparkles,
+  ArrowRight,
+  Filter,
 } from "lucide-react";
 import {
   Button,
   Badge,
   Input,
 } from "@repo/ui";
-import { initialJobPositions, type AdminJobPosition } from "@/lib/admin-data";
+import {
+  initialJobPositions,
+  initialJobCandidates,
+  type AdminJobPosition,
+  type JobCandidate,
+} from "@/lib/admin-data";
+import { JobFormSheet } from "@/components/job-form-sheet";
+import { CandidateReviewModal } from "@/components/candidate-review-modal";
 
 export default function CareersAdminPage() {
   const [jobs, setJobs] = useState<AdminJobPosition[]>(initialJobPositions);
+  const [candidates, setCandidates] = useState<JobCandidate[]>(initialJobCandidates);
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Sheet & Modal state
+  const [isJobSheetOpen, setIsJobSheetOpen] = useState(false);
+  const [jobToEdit, setJobToEdit] = useState<AdminJobPosition | null>(null);
+  const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false);
+  const [activeJobForCandidates, setActiveJobForCandidates] = useState<AdminJobPosition | null>(null);
+
   const statuses = ["All", "Active", "Draft", "Closed"];
 
+  // Filter jobs by status & search query
   const filteredJobs = jobs.filter((job) => {
     const matchesStatus =
       selectedStatus === "All" || job.status === selectedStatus;
@@ -39,8 +58,49 @@ export default function CareersAdminPage() {
     return matchesStatus && matchesSearch;
   });
 
-  const totalApplicants = jobs.reduce((acc, j) => acc + j.applicantsCount, 0);
-  const totalNewApplicants = jobs.reduce((acc, j) => acc + j.newApplicantsCount, 0);
+  // Calculate live stats from candidates
+  const totalApplicants = candidates.length;
+  const unreadApplicants = candidates.filter((c) => c.isUnread).length;
+
+  // Handlers for Requisitions
+  const handleOpenCreateJob = () => {
+    setJobToEdit(null);
+    setIsJobSheetOpen(true);
+  };
+
+  const handleOpenEditJob = (job: AdminJobPosition) => {
+    setJobToEdit(job);
+    setIsJobSheetOpen(true);
+  };
+
+  const handleSaveJob = (savedJob: AdminJobPosition) => {
+    setJobs((prev) => {
+      const idx = prev.findIndex((j) => j.id === savedJob.id);
+      if (idx !== -1) {
+        const next = [...prev];
+        next[idx] = savedJob;
+        return next;
+      }
+      return [savedJob, ...prev];
+    });
+  };
+
+  // Handlers for Candidates
+  const handleOpenCandidatesForJob = (job: AdminJobPosition) => {
+    setActiveJobForCandidates(job);
+    setIsCandidateModalOpen(true);
+  };
+
+  const handleOpenAllCandidates = () => {
+    setActiveJobForCandidates(null);
+    setIsCandidateModalOpen(true);
+  };
+
+  const handleUpdateCandidate = (updated: JobCandidate) => {
+    setCandidates((prev) =>
+      prev.map((c) => (c.id === updated.id ? updated : c))
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -62,8 +122,27 @@ export default function CareersAdminPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Button size="sm" className="h-9 gap-2 text-xs rounded-xs">
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleOpenAllCandidates}
+            className="h-9 gap-2 text-xs rounded-xs relative"
+          >
+            <Users className="size-4 text-muted-foreground" />
+            <span>Review Applicants</span>
+            {unreadApplicants > 0 && (
+              <span className="ml-1 px-1.5 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold">
+                {unreadApplicants}
+              </span>
+            )}
+          </Button>
+
+          <Button
+            size="sm"
+            onClick={handleOpenCreateJob}
+            className="h-9 gap-2 text-xs rounded-xs"
+          >
             <Plus className="size-4" />
             <span>Post New Position</span>
           </Button>
@@ -90,21 +169,35 @@ export default function CareersAdminPage() {
           </div>
         </div>
 
-        <div className="p-4 bg-card border border-border rounded-xs">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Candidate Pipeline
+        <div
+          onClick={handleOpenAllCandidates}
+          className="p-4 bg-card border border-border rounded-xs cursor-pointer hover:border-primary/40 transition-colors group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-colors">
+              Candidate Pipeline
+            </span>
+            <ArrowRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors" />
           </div>
           <div className="text-2xl font-serif font-bold text-foreground mt-1">
             {totalApplicants}
           </div>
         </div>
 
-        <div className="p-4 bg-card border border-border rounded-xs">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Unreviewed Resumes
+        <div
+          onClick={handleOpenAllCandidates}
+          className="p-4 bg-card border border-border rounded-xs cursor-pointer hover:border-primary/40 transition-colors group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-colors">
+              Unreviewed Resumes
+            </span>
+            {unreadApplicants > 0 && (
+              <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+            )}
           </div>
           <div className="text-2xl font-serif font-bold text-primary mt-1">
-            {totalNewApplicants}
+            {unreadApplicants}
           </div>
         </div>
       </div>
@@ -162,111 +255,149 @@ export default function CareersAdminPage() {
                   </td>
                 </tr>
               ) : (
-                filteredJobs.map((job) => (
-                  <tr
-                    key={job.id}
-                    className="hover:bg-muted/30 transition-colors group"
-                  >
-                    <td className="py-4 px-4 font-medium">
-                      <div className="flex items-start gap-3">
-                        <div className="size-9 rounded-xs bg-muted border border-border flex items-center justify-center shrink-0 text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors mt-0.5">
-                          <Briefcase className="size-4" />
-                        </div>
-                        <div>
-                          <div className="font-semibold text-foreground text-sm font-serif">
-                            {job.title}
+                filteredJobs.map((job) => {
+                  const jobCandidates = candidates.filter((c) => c.jobId === job.id);
+                  const newCandidates = jobCandidates.filter((c) => c.isUnread);
+
+                  return (
+                    <tr
+                      key={job.id}
+                      className="hover:bg-muted/30 transition-colors group"
+                    >
+                      <td className="py-4 px-4 font-medium">
+                        <div className="flex items-start gap-3">
+                          <div className="size-9 rounded-xs bg-muted border border-border flex items-center justify-center shrink-0 text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors mt-0.5">
+                            <Briefcase className="size-4" />
                           </div>
-                          <div className="text-[11px] text-primary font-medium mt-0.5">
-                            {job.department}
+                          <div>
+                            <div className="font-semibold text-foreground text-sm font-serif">
+                              {job.title}
+                            </div>
+                            <div className="text-[11px] text-primary font-medium mt-0.5">
+                              {job.department}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
 
-                    <td className="py-4 px-4 text-foreground">
-                      <div className="flex items-center gap-1.5 text-xs">
-                        <MapPin className="size-3 text-muted-foreground" />
-                        <span>{job.location}</span>
-                      </div>
-                      <div className="text-[11px] text-muted-foreground mt-0.5">
-                        {job.type}
-                      </div>
-                    </td>
+                      <td className="py-4 px-4 text-foreground">
+                        <div className="flex items-center gap-1.5 text-xs">
+                          <MapPin className="size-3 text-muted-foreground" />
+                          <span>{job.location}</span>
+                        </div>
+                        <div className="text-[11px] text-muted-foreground mt-0.5">
+                          {job.type} {job.workplaceType ? `• ${job.workplaceType}` : ""}
+                        </div>
+                      </td>
 
-                    <td className="py-4 px-4">
-                      <span className="px-2 py-0.5 rounded-xs bg-muted border border-border text-[11px] text-foreground font-medium">
-                        {job.level}
-                      </span>
-                    </td>
-
-                    <td className="py-4 px-4">
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs text-[11px] font-medium ${
-                          job.status === "Active"
-                            ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20"
-                        }`}
-                      >
-                        <span
-                          className={`size-1.5 rounded-full ${
-                            job.status === "Active"
-                              ? "bg-emerald-500"
-                              : "bg-amber-500"
-                          }`}
-                        />
-                        {job.status}
-                      </span>
-                      <div className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1">
-                        <Calendar className="size-3" />
-                        <span>Closes {job.deadline}</span>
-                      </div>
-                    </td>
-
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-foreground text-sm font-serif">
-                          {job.applicantsCount}
+                      <td className="py-4 px-4">
+                        <span className="px-2 py-0.5 rounded-xs bg-muted border border-border text-[11px] text-foreground font-medium">
+                          {job.level}
                         </span>
-                        {job.newApplicantsCount > 0 && (
-                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-xs bg-primary text-white">
-                            +{job.newApplicantsCount} new
+                      </td>
+
+                      <td className="py-4 px-4">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs text-[11px] font-medium ${
+                            job.status === "Active"
+                              ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20"
+                              : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20"
+                          }`}
+                        >
+                          <span
+                            className={`size-1.5 rounded-full ${
+                              job.status === "Active"
+                                ? "bg-emerald-500"
+                                : "bg-amber-500"
+                            }`}
+                          />
+                          {job.status}
+                        </span>
+                        <div className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1">
+                          <Calendar className="size-3" />
+                          <span>Closes {job.deadline}</span>
+                        </div>
+                      </td>
+
+                      <td className="py-4 px-4">
+                        <button
+                          onClick={() => handleOpenCandidatesForJob(job)}
+                          className="flex items-center gap-2 hover:underline text-left group/count"
+                          title="View applicants for this position"
+                        >
+                          <span className="font-semibold text-foreground text-sm font-serif">
+                            {jobCandidates.length}
                           </span>
-                        )}
-                      </div>
-                      <span className="text-[11px] text-muted-foreground">
-                        Candidates received
-                      </span>
-                    </td>
+                          {newCandidates.length > 0 && (
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-xs bg-primary text-white">
+                              +{newCandidates.length} new
+                            </span>
+                          )}
+                        </button>
+                        <span className="text-[11px] text-muted-foreground block">
+                          Candidates in pipeline
+                        </span>
+                      </td>
 
-                    <td className="py-4 px-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <a
-                          href="http://localhost:3000/careers"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title="View on Live Job Board"
-                          className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xs transition-colors"
-                        >
-                          <ExternalLink className="size-3.5" />
-                        </a>
+                      <td className="py-4 px-4 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <a
+                            href="http://localhost:3000/careers"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="View on Live Job Board"
+                            className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xs transition-colors"
+                          >
+                            <ExternalLink className="size-3.5" />
+                          </a>
 
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="h-7 text-xs px-2.5 rounded-xs gap-1"
-                        >
-                          <Users className="size-3" />
-                          <span>Applicants</span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleOpenEditJob(job)}
+                            className="h-7 text-xs px-2 rounded-xs text-muted-foreground hover:text-foreground"
+                            title="Edit Requisition Details"
+                          >
+                            <Edit3 className="size-3" />
+                            <span className="sr-only">Edit</span>
+                          </Button>
+
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleOpenCandidatesForJob(job)}
+                            className="h-7 text-xs px-2.5 rounded-xs gap-1"
+                          >
+                            <Users className="size-3" />
+                            <span>Applicants</span>
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
         </div>
       </div>
+
+      {/* 1. Job Requisition Drawer (Sheet) */}
+      <JobFormSheet
+        open={isJobSheetOpen}
+        onOpenChange={setIsJobSheetOpen}
+        jobToEdit={jobToEdit}
+        onSave={handleSaveJob}
+      />
+
+      {/* 2. Candidate Submissions & Resume Review Modal (Dialog) */}
+      <CandidateReviewModal
+        open={isCandidateModalOpen}
+        onOpenChange={setIsCandidateModalOpen}
+        candidates={candidates}
+        jobFilter={activeJobForCandidates}
+        onUpdateCandidate={handleUpdateCandidate}
+      />
     </div>
   );
 }
