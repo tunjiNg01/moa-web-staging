@@ -12,6 +12,14 @@ import {
   ShieldAlert,
   KeyRound,
   Mail,
+  Copy,
+  Check,
+  Edit3,
+  ExternalLink,
+  Shield,
+  UserX,
+  UserCheck,
+  Sparkles,
 } from "lucide-react";
 import {
   Button,
@@ -20,12 +28,21 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@repo/ui";
 import { initialAdminUsers, type AdminUser, type AdminRole } from "@/lib/admin-data";
+import { UserFormModal } from "@/components/user-form-modal";
 
 export default function UsersAdminPage() {
   const [users, setUsers] = useState<AdminUser[]>(initialAdminUsers);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userToEdit, setUserToEdit] = useState<AdminUser | null>(null);
+  const [copiedUserId, setCopiedUserId] = useState<string | null>(null);
 
   const filteredUsers = users.filter((u) =>
     u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -33,11 +50,48 @@ export default function UsersAdminPage() {
     u.role.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleOpenInvite = () => {
+    setUserToEdit(null);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEdit = (user: AdminUser) => {
+    setUserToEdit(user);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveUser = (savedUser: AdminUser) => {
+    setUsers((prev) => {
+      const idx = prev.findIndex((u) => u.id === savedUser.id);
+      if (idx !== -1) {
+        const next = [...prev];
+        next[idx] = savedUser;
+        return next;
+      }
+      return [savedUser, ...prev];
+    });
+  };
+
+  const handleToggleStatus = (user: AdminUser) => {
+    const nextStatus = user.status === "Active" ? "Inactive" : "Active";
+    setUsers((prev) =>
+      prev.map((u) => (u.id === user.id ? { ...u, status: nextStatus } : u))
+    );
+  };
+
+  const handleCopyInviteLink = (user: AdminUser) => {
+    const token = `inv_${user.id}_${Date.now().toString(36)}`;
+    const link = `http://localhost:3001/invite/${token}`;
+    navigator.clipboard.writeText(link);
+    setCopiedUserId(user.id);
+    setTimeout(() => setCopiedUserId(null), 2500);
+  };
+
   const getRoleBadge = (role: AdminRole) => {
     switch (role) {
       case "SUPER_ADMIN":
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs text-[11px] font-semibold bg-primary text-white">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs text-[11px] font-semibold bg-primary text-white shadow-2xs">
             <ShieldCheck className="size-3" />
             <span>Super Admin</span>
           </span>
@@ -52,11 +106,17 @@ export default function UsersAdminPage() {
       case "REVIEWER":
         return (
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs text-[11px] font-medium bg-muted text-muted-foreground border border-border">
+            <KeyRound className="size-3" />
             <span>Reviewer</span>
           </span>
         );
     }
   };
+
+  const totalAdmins = users.length;
+  const activeAdmins = users.filter((u) => u.status === "Active").length;
+  const pendingInvites = users.filter((u) => u.status === "Invited").length;
+  const superAdmins = users.filter((u) => u.role === "SUPER_ADMIN").length;
 
   return (
     <div className="space-y-6">
@@ -65,7 +125,7 @@ export default function UsersAdminPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xs font-bold uppercase tracking-wider text-primary">
-              Access Control
+              Access Governance
             </span>
             <span className="text-xs text-muted-foreground">•</span>
             <span className="text-xs text-muted-foreground">Security &amp; Permissions</span>
@@ -79,10 +139,53 @@ export default function UsersAdminPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button size="sm" className="h-9 gap-2 text-xs rounded-xs">
+          <Button
+            size="sm"
+            onClick={handleOpenInvite}
+            className="h-9 gap-2 text-xs rounded-xs"
+          >
             <UserPlus className="size-4" />
             <span>Invite Administrator</span>
           </Button>
+        </div>
+      </div>
+
+      {/* KPI Stat Ribbon */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="p-4 bg-card border border-border rounded-xs">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Total Administrators
+          </div>
+          <div className="text-2xl font-serif font-bold text-foreground mt-1">
+            {totalAdmins}
+          </div>
+        </div>
+
+        <div className="p-4 bg-card border border-border rounded-xs">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Active on Platform
+          </div>
+          <div className="text-2xl font-serif font-bold text-emerald-600 mt-1">
+            {activeAdmins}
+          </div>
+        </div>
+
+        <div className="p-4 bg-card border border-border rounded-xs">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Pending Invitations
+          </div>
+          <div className="text-2xl font-serif font-bold text-blue-600 mt-1">
+            {pendingInvites}
+          </div>
+        </div>
+
+        <div className="p-4 bg-card border border-border rounded-xs">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Super Admins
+          </div>
+          <div className="text-2xl font-serif font-bold text-primary mt-1">
+            {superAdmins}
+          </div>
         </div>
       </div>
 
@@ -189,12 +292,18 @@ export default function UsersAdminPage() {
                       className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs text-[11px] font-medium ${
                         user.status === "Active"
                           ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20"
-                          : "bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20"
+                          : user.status === "Invited"
+                          ? "bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20"
+                          : "bg-muted text-muted-foreground border border-border"
                       }`}
                     >
                       <span
                         className={`size-1.5 rounded-full ${
-                          user.status === "Active" ? "bg-emerald-500" : "bg-blue-500"
+                          user.status === "Active"
+                            ? "bg-emerald-500"
+                            : user.status === "Invited"
+                            ? "bg-blue-500"
+                            : "bg-zinc-400"
                         }`}
                       />
                       {user.status}
@@ -211,13 +320,75 @@ export default function UsersAdminPage() {
 
                   <td className="py-4 px-4 text-right">
                     <div className="flex items-center justify-end gap-2">
+                      {user.status === "Invited" && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleCopyInviteLink(user)}
+                          className="h-7 text-xs px-2 rounded-xs text-muted-foreground hover:text-foreground"
+                          title="Copy setup link for invited user"
+                        >
+                          {copiedUserId === user.id ? (
+                            <Check className="size-3.5 text-emerald-600" />
+                          ) : (
+                            <Copy className="size-3.5" />
+                          )}
+                        </Button>
+                      )}
+
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-7 text-xs px-2.5 rounded-xs"
+                        onClick={() => handleOpenEdit(user)}
+                        className="h-7 text-xs px-2.5 rounded-xs gap-1"
                       >
-                        Edit Role
+                        <Edit3 className="size-3" />
+                        <span>Edit Role</span>
                       </Button>
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="size-7 rounded-xs text-muted-foreground hover:text-foreground"
+                          >
+                            <MoreVertical className="size-3.5" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48 text-xs">
+                          <DropdownMenuItem onClick={() => handleOpenEdit(user)}>
+                            <Edit3 className="size-3.5 mr-2" />
+                            <span>Edit Role &amp; Access</span>
+                          </DropdownMenuItem>
+
+                          {user.status === "Invited" && (
+                            <DropdownMenuItem onClick={() => handleCopyInviteLink(user)}>
+                              <Copy className="size-3.5 mr-2" />
+                              <span>Copy Onboarding Link</span>
+                            </DropdownMenuItem>
+                          )}
+
+                          <DropdownMenuSeparator />
+
+                          <DropdownMenuItem
+                            onClick={() => handleToggleStatus(user)}
+                            className={user.status === "Active" ? "text-destructive" : "text-emerald-600"}
+                          >
+                            {user.status === "Active" ? (
+                              <>
+                                <UserX className="size-3.5 mr-2" />
+                                <span>Suspend Access</span>
+                              </>
+                            ) : (
+                              <>
+                                <UserCheck className="size-3.5 mr-2" />
+                                <span>Activate Account</span>
+                              </>
+                            )}
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </td>
                 </tr>
@@ -226,6 +397,14 @@ export default function UsersAdminPage() {
           </table>
         </div>
       </div>
+
+      {/* User Form & RBAC Modal */}
+      <UserFormModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        userToEdit={userToEdit}
+        onSave={handleSaveUser}
+      />
     </div>
   );
 }
