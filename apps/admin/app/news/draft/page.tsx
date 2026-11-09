@@ -139,9 +139,9 @@ function DraftArticleContent() {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto pb-16">
-      {/* 1. Sticky Control Header */}
-      <div className="sticky top-0 z-20 -mx-4 sm:-mx-6 -mt-6 p-4 sm:p-6 bg-card/80 backdrop-blur-md border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="min-h-full flex flex-col bg-background">
+      {/* 1. Sticky Control Header touching the actual page header at top */}
+      <div className="sticky top-0 z-20 bg-card/95 backdrop-blur-md border-b border-border px-4 py-3 sm:px-8 sm:py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
         <div className="flex items-center gap-3">
           <Link
             href="/news"
@@ -228,7 +228,8 @@ function DraftArticleContent() {
       </div>
 
       {/* 2. Main Two-Column Editorial Workspace */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-8 sm:py-8 space-y-6 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Writing Canvas (8 of 12 cols = 67%) */}
         <div className="lg:col-span-8 space-y-6">
           {/* Article Headline Input */}
@@ -440,6 +441,7 @@ function DraftArticleContent() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

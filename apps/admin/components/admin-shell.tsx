@@ -14,9 +14,15 @@ export function AdminShell({ children }: AdminShellProps) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const pathname = usePathname();
 
-  if (pathname === "/login" || pathname.startsWith("/login")) {
+  if (
+    pathname === "/login" ||
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/field-upload")
+  ) {
     return <main className="min-h-screen">{children}</main>;
   }
+
+  const isStudioPage = pathname.startsWith("/news/draft");
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
@@ -35,10 +41,16 @@ export function AdminShell({ children }: AdminShellProps) {
       {/* Main Content Area */}
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <AdminHeader onOpenMobileNav={() => setMobileNavOpen(true)} />
-        <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-8 sm:py-8">
-          <div className="max-w-7xl mx-auto space-y-8">
-            {children}
-          </div>
+        <main
+          className={`flex-1 overflow-y-auto ${
+            isStudioPage ? "p-0" : "px-4 py-6 sm:px-8 sm:py-8"
+          }`}
+        >
+          {isStudioPage ? (
+            children
+          ) : (
+            <div className="max-w-7xl mx-auto space-y-8">{children}</div>
+          )}
         </main>
       </div>
     </div>
