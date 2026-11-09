@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Users,
   Search,
@@ -27,10 +27,9 @@ import {
   UserCheck,
   AlertCircle,
   Eye,
+  ChevronLeft,
 } from "lucide-react";
 import {
-  Dialog,
-  DialogContent,
   Button,
   Input,
   Badge,
@@ -68,11 +67,27 @@ export function CandidateReviewModal({
   const [selectedStage, setSelectedStage] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null);
+  const [mobileView, setMobileView] = useState<"list" | "detail">("list");
 
   // Notes scratchpad state for currently selected candidate
   const [notesDraft, setNotesDraft] = useState<string>("");
   const [ratingDraft, setRatingDraft] = useState<number>(0);
   const [notesSavedSuccess, setNotesSavedSuccess] = useState(false);
+
+  // Close on Escape key & prevent background scroll
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onOpenChange(false);
+    };
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open, onOpenChange]);
 
   // Filter candidates by job (if specified), stage, and search query
   const filteredCandidates = useMemo(() => {
@@ -110,7 +125,7 @@ export function CandidateReviewModal({
   }, [candidates, selectedCandidateId, filteredCandidates]);
 
   // Sync draft notes whenever active candidate changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeCandidate) {
       setNotesDraft(activeCandidate.interviewerNotes || "");
       setRatingDraft(activeCandidate.rating || 0);
@@ -162,39 +177,46 @@ export function CandidateReviewModal({
     }
   };
 
+  if (!open) return null;
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        showCloseButton={false}
-        className="max-w-6xl w-full h-[90vh] p-0 flex flex-col bg-card border border-border shadow-2xl overflow-hidden rounded-xs focus:outline-hidden"
+    <div
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-2 sm:p-4 md:p-6 lg:p-8 animate-in fade-in-0 duration-200"
+      onClick={() => onOpenChange(false)}
+    >
+      <div
+        className="w-full max-w-7xl h-[92vh] max-h-[960px] bg-card border border-border rounded-xs shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Header Bar */}
-        <div className="shrink-0 px-6 py-4 border-b border-border bg-card/90 backdrop-blur-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="size-9 rounded-xs bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+        {/* 1. Pinned Top Header Bar */}
+        <div className="shrink-0 px-6 py-4 border-b border-border bg-card/95 backdrop-blur-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="size-10 rounded-xs bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
               <Users className="size-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
                   Applicant Tracking System (ATS)
                 </span>
                 <span className="text-xs text-muted-foreground">•</span>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-muted-foreground truncate max-w-[260px] sm:max-w-md">
                   {jobFilter ? jobFilter.title : "All Engineering Requisitions"}
                 </span>
               </div>
-              <h2 className="text-lg font-serif font-bold text-foreground">
+              <h2 className="text-lg sm:text-xl font-serif font-bold text-foreground truncate">
                 Candidate Submissions &amp; Dossiers
               </h2>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="relative w-48 sm:w-64">
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="relative w-48 sm:w-72">
               <Search className="size-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Search candidates, skills..."
+                placeholder="Search candidates, skills, email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="h-8 pl-8 text-xs bg-background rounded-xs"
@@ -204,17 +226,18 @@ export function CandidateReviewModal({
               variant="outline"
               size="sm"
               onClick={() => onOpenChange(false)}
-              className="h-8 text-xs rounded-xs"
+              className="h-8 text-xs rounded-xs gap-1"
             >
-              Close
+              <X className="size-3.5" />
+              <span className="hidden sm:inline">Close</span>
             </Button>
           </div>
         </div>
 
-        {/* Stage Filter Ribbon */}
+        {/* 2. Pinned Stage Filter Ribbon */}
         <div className="shrink-0 px-6 py-2.5 border-b border-border bg-muted/30 flex items-center gap-2 overflow-x-auto text-xs">
           <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mr-1 shrink-0">
-            Stages:
+            Stage Pipeline:
           </span>
           <button
             onClick={() => setSelectedStage("All")}
@@ -254,10 +277,21 @@ export function CandidateReviewModal({
           })}
         </div>
 
-        {/* Main Two-Pane ATS Workspace */}
+        {/* 3. Main Two-Pane Workspace */}
         <div className="flex-1 min-h-0 flex flex-col md:flex-row overflow-hidden">
-          {/* Left Column: Candidates Stream */}
-          <div className="w-full md:w-80 lg:w-96 border-r border-border shrink-0 flex flex-col bg-background/50 overflow-y-auto">
+          {/* Left Column: Candidates Stream (List) */}
+          <div
+            className={`w-full md:w-80 lg:w-96 border-r border-border shrink-0 flex flex-col bg-background/60 overflow-y-auto ${
+              mobileView === "detail" ? "hidden md:flex" : "flex"
+            }`}
+          >
+            <div className="p-3 bg-muted/20 border-b border-border text-[11px] font-semibold text-muted-foreground flex items-center justify-between">
+              <span>Applications ({filteredCandidates.length})</span>
+              <span className="font-mono text-[10px]">
+                {filteredCandidates.filter((c) => c.isUnread).length} unread
+              </span>
+            </div>
+
             {filteredCandidates.length === 0 ? (
               <div className="p-8 text-center text-xs text-muted-foreground">
                 <Users className="size-8 mx-auto mb-2 opacity-40" />
@@ -270,7 +304,10 @@ export function CandidateReviewModal({
                   return (
                     <button
                       key={cand.id}
-                      onClick={() => setSelectedCandidateId(cand.id)}
+                      onClick={() => {
+                        setSelectedCandidateId(cand.id);
+                        setMobileView("detail");
+                      }}
                       className={`w-full text-left p-4 transition-colors relative flex flex-col gap-2 ${
                         isSelected
                           ? "bg-card border-l-4 border-l-primary shadow-xs"
@@ -278,14 +315,14 @@ export function CandidateReviewModal({
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
                           {cand.isUnread && (
                             <span
                               className="size-2 rounded-full bg-emerald-500 shrink-0"
                               title="Unread Application"
                             />
                           )}
-                          <span className="font-semibold text-xs text-foreground truncate max-w-[170px]">
+                          <span className="font-semibold text-xs text-foreground truncate">
                             {cand.name}
                           </span>
                         </div>
@@ -337,14 +374,31 @@ export function CandidateReviewModal({
           </div>
 
           {/* Right Column: Selected Candidate Dossier & ATS Pipeline Progression */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-card">
+          <div
+            className={`flex-1 min-w-0 overflow-y-auto p-6 lg:p-8 space-y-6 bg-card ${
+              mobileView === "list" ? "hidden md:block" : "block"
+            }`}
+          >
+            {/* Mobile Back Button */}
+            <div className="md:hidden pb-3 border-b border-border">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setMobileView("list")}
+                className="text-xs -ml-2 gap-1 text-muted-foreground"
+              >
+                <ChevronLeft className="size-4" />
+                <span>Back to Candidate List</span>
+              </Button>
+            </div>
+
             {activeCandidate ? (
-              <div className="space-y-6">
+              <div className="space-y-6 max-w-4xl">
                 {/* Dossier Header */}
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-6 border-b border-border">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-xl font-serif font-bold text-foreground">
+                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-6 border-b border-border">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <h3 className="text-xl sm:text-2xl font-serif font-bold text-foreground">
                         {activeCandidate.name}
                       </h3>
                       <Badge
@@ -356,12 +410,12 @@ export function CandidateReviewModal({
                         {activeCandidate.stage}
                       </Badge>
                     </div>
-                    <p className="text-xs text-primary font-medium mt-0.5">
-                      Target Requisition: {activeCandidate.jobTitle}
+                    <p className="text-xs text-primary font-medium mt-1">
+                      Applied for: {activeCandidate.jobTitle}
                     </p>
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mt-2">
-                      <span className="flex items-center gap-1">
-                        <Mail className="size-3 text-muted-foreground" />
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mt-3">
+                      <span className="flex items-center gap-1.5">
+                        <Mail className="size-3.5 text-muted-foreground" />
                         <a
                           href={`mailto:${activeCandidate.email}`}
                           className="hover:underline text-foreground"
@@ -369,18 +423,18 @@ export function CandidateReviewModal({
                           {activeCandidate.email}
                         </a>
                       </span>
-                      <span className="flex items-center gap-1">
-                        <Phone className="size-3 text-muted-foreground" />
+                      <span className="flex items-center gap-1.5">
+                        <Phone className="size-3.5 text-muted-foreground" />
                         <span>{activeCandidate.phone}</span>
                       </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="size-3 text-muted-foreground" />
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="size-3.5 text-muted-foreground" />
                         <span>{activeCandidate.location}</span>
                       </span>
                     </div>
                   </div>
 
-                  {/* External Links */}
+                  {/* External Links & Unread Toggle */}
                   <div className="flex items-center gap-2 shrink-0">
                     {activeCandidate.linkedinUrl && (
                       <a
@@ -408,7 +462,7 @@ export function CandidateReviewModal({
                 </div>
 
                 {/* Interactive Stage Transition Bar */}
-                <div className="p-4 bg-muted/40 border border-border rounded-xs space-y-2">
+                <div className="p-4 bg-muted/40 border border-border rounded-xs space-y-2.5">
                   <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     <span>Recruitment Pipeline Stage</span>
                     <span className="text-[11px] font-mono lowercase text-foreground">
@@ -524,7 +578,7 @@ export function CandidateReviewModal({
                   <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Attached Engineering Resume / CV
                   </Label>
-                  <div className="p-4 bg-card border border-border rounded-xs flex items-center justify-between gap-4">
+                  <div className="p-4 bg-card border border-border rounded-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                       <div className="size-10 rounded-xs bg-red-500/10 text-red-600 border border-red-500/20 flex items-center justify-center shrink-0">
                         <FileText className="size-5" />
@@ -548,7 +602,7 @@ export function CandidateReviewModal({
                           alert("Opening candidate curriculum vitae in viewer window.");
                         }
                       }}
-                      className="px-3 py-1.5 rounded-xs bg-muted hover:bg-muted/80 text-foreground text-xs font-medium border border-border flex items-center gap-1.5 transition-colors"
+                      className="px-3 py-1.5 rounded-xs bg-muted hover:bg-muted/80 text-foreground text-xs font-medium border border-border flex items-center justify-center gap-1.5 transition-colors shrink-0"
                     >
                       <Download className="size-3.5" />
                       <span>Download CV</span>
@@ -558,7 +612,7 @@ export function CandidateReviewModal({
 
                 {/* Interviewer Evaluation Scratchpad */}
                 <div className="p-5 bg-card border border-border rounded-xs space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground">
                         Interviewer Technical Rating &amp; Internal Notes
@@ -630,8 +684,7 @@ export function CandidateReviewModal({
             )}
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   );
 }
-
