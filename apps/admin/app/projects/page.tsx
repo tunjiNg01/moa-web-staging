@@ -17,6 +17,8 @@ import {
   Copy,
   Trash2,
   ArrowUpDown,
+  Eye,
+  HardHat,
 } from "lucide-react";
 import {
   Button,
@@ -29,6 +31,7 @@ import {
 } from "@repo/ui";
 import { initialProjects, type AdminProject } from "@/lib/admin-data";
 import { ProjectFormSheet } from "@/components/project-form-sheet";
+import { FieldUpdateLinkModal } from "@/components/field-update-link-modal";
 
 export default function ProjectsAdminPage() {
   const [projects, setProjects] = useState<AdminProject[]>(initialProjects);
@@ -36,6 +39,8 @@ export default function ProjectsAdminPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<AdminProject | null>(null);
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const [selectedForLink, setSelectedForLink] = useState<AdminProject | null>(null);
 
   const categories = ["All", "Commercial", "Public & cultural", "Residential"];
 
@@ -240,16 +245,17 @@ export default function ProjectsAdminPage() {
                     </td>
 
                     <td className="py-4 px-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <a
-                          href={`http://localhost:3000/projects/${project.id}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title="View on Live Site"
-                          className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xs transition-colors"
-                        >
-                          <ExternalLink className="size-3.5" />
-                        </a>
+                      <div className="flex items-center justify-end gap-1.5">
+                        <Link href={`/projects/${project.id}`}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 text-xs px-2.5 rounded-xs gap-1 text-foreground hover:bg-muted"
+                          >
+                            <Eye className="size-3 text-muted-foreground" />
+                            <span>View</span>
+                          </Button>
+                        </Link>
 
                         <Button
                           variant="outline"
@@ -275,7 +281,37 @@ export default function ProjectsAdminPage() {
                               <span className="sr-only">Project actions</span>
                             </Button>
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end" className="w-44 text-xs">
+                          <DropdownMenuContent align="end" className="w-52 text-xs">
+                            <DropdownMenuItem asChild>
+                              <Link
+                                href={`/projects/${project.id}`}
+                                className="gap-2 cursor-pointer"
+                              >
+                                <Eye className="size-3.5 text-muted-foreground" />
+                                <span>View Details &amp; Media</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => {
+                                setEditingProject(project);
+                                setIsFormOpen(true);
+                              }}
+                              className="gap-2 cursor-pointer"
+                            >
+                              <Edit3 className="size-3.5 text-muted-foreground" />
+                              <span>Edit Specifications</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => {
+                                setSelectedForLink(project);
+                                setIsLinkModalOpen(true);
+                              }}
+                              className="gap-2 cursor-pointer text-primary focus:text-primary font-medium"
+                            >
+                              <HardHat className="size-3.5" />
+                              <span>Generate Field Link</span>
+                            </DropdownMenuItem>
+                            <div className="my-1 border-t border-border" />
                             <DropdownMenuItem
                               onClick={() => handleToggleStatus(project.id)}
                               className="gap-2 cursor-pointer"
@@ -301,6 +337,16 @@ export default function ProjectsAdminPage() {
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
+
+                        <a
+                          href={`http://localhost:3000/projects/${project.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="View on Live Site"
+                          className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xs transition-colors ml-1"
+                        >
+                          <ExternalLink className="size-3.5" />
+                        </a>
                       </div>
                     </td>
                   </tr>
@@ -317,6 +363,13 @@ export default function ProjectsAdminPage() {
         onOpenChange={setIsFormOpen}
         project={editingProject}
         onSave={handleSaveProject}
+      />
+
+      {/* Field Update Link Generator Modal */}
+      <FieldUpdateLinkModal
+        open={isLinkModalOpen}
+        onOpenChange={setIsLinkModalOpen}
+        project={selectedForLink}
       />
     </div>
   );

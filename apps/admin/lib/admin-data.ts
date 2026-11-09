@@ -21,12 +21,25 @@ export interface AdminAuditLog {
   category: "PROJECT" | "NEWS" | "CAREERS" | "USER" | "SYSTEM";
 }
 
+export interface ProjectMediaItem {
+  id: string;
+  url: string;
+  title?: string;
+  isHero: boolean;
+  isPublished: boolean;
+  stage?: "Foundations" | "Superstructure" | "Facade" | "Completion" | "Inspection";
+  uploadedBy?: string;
+  uploadedAt: string;
+  fieldNote?: string;
+}
+
 export interface AdminProject {
   id: string;
   title: string;
   category: "Commercial" | "Public & cultural" | "Residential";
   image: string;
   galleryImages?: string[];
+  mediaItems?: ProjectMediaItem[];
   description: string;
   status: "Published" | "Draft" | "Archived";
   caseStudy: {
@@ -131,6 +144,51 @@ export const initialProjects: AdminProject[] = [
       challenge: "Achieving a 38-meter column-free auditorium while maintaining architectural acoustics and seismic resilience.",
       outcome: "Completed on schedule with a 14% material reduction through finite-element tension modeling.",
     },
+    mediaItems: [
+      {
+        id: "media_civic_hero",
+        url: "/images/structure-detail.jpg",
+        title: "Auditorium Roof Space Truss Detail",
+        isHero: true,
+        isPublished: true,
+        stage: "Superstructure",
+        uploadedBy: "Admin (Editorial)",
+        uploadedAt: "2026-10-14",
+      },
+      {
+        id: "media_civic_1",
+        url: "/images/engineering-hero.jpg",
+        title: "Perimeter Beam Post-Tensioning Jacks",
+        isHero: false,
+        isPublished: true,
+        stage: "Superstructure",
+        uploadedBy: "Engr. Funsho Morgan",
+        uploadedAt: "2026-10-12",
+        fieldNote: "Post-tensioning tendon elongation tests passed 100% QA checks.",
+      },
+      {
+        id: "media_civic_2",
+        url: "/images/residential-project.jpg",
+        title: "Acoustic Baffle Bracket Foundations",
+        isHero: false,
+        isPublished: false,
+        stage: "Inspection",
+        uploadedBy: "Engr. Site Team",
+        uploadedAt: "2026-10-15",
+        fieldNote: "Onsite vibration dampening anchors inspection before ceiling closure.",
+      },
+      {
+        id: "media_civic_3",
+        url: "/images/news-sustainable-materials.jpg",
+        title: "Low-Carbon Slag Concrete Pour",
+        isHero: false,
+        isPublished: false,
+        stage: "Foundations",
+        uploadedBy: "Engr. Babatunde",
+        uploadedAt: "2026-09-20",
+        fieldNote: "Core slab 28-day cylinder compressive strength exceeded 50MPa.",
+      },
+    ],
   },
   {
     id: "commercial",
