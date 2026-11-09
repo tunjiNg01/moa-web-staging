@@ -71,17 +71,12 @@ export default function NewsAdminPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button
-            size="sm"
-            className="h-9 gap-2 text-xs rounded-xs"
-            onClick={() => {
-              setEditingArticle(null);
-              setIsFormOpen(true);
-            }}
-          >
-            <Plus className="size-4" />
-            <span>Draft New Article</span>
-          </Button>
+          <Link href="/news/draft">
+            <Button size="sm" className="h-9 gap-2 text-xs rounded-xs">
+              <Plus className="size-4" />
+              <span>Draft New Article</span>
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -233,18 +228,16 @@ export default function NewsAdminPage() {
                           </a>
                         )}
 
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="h-7 text-xs px-2.5 rounded-xs gap-1"
-                          onClick={() => {
-                            setEditingArticle(article);
-                            setIsFormOpen(true);
-                          }}
-                        >
-                          <Edit3 className="size-3" />
-                          <span>Edit</span>
-                        </Button>
+                        <Link href={`/news/draft?id=${article.id}`}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 text-xs px-2.5 rounded-xs gap-1"
+                          >
+                            <Edit3 className="size-3" />
+                            <span>Edit</span>
+                          </Button>
+                        </Link>
                       </div>
                     </td>
                   </tr>

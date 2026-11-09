@@ -58,6 +58,7 @@ export interface AdminNewsArticle {
   title: string;
   category: "Foresight" | "Industry Insight" | "Company News" | "Sustainability";
   summary: string;
+  content?: string;
   status: "Published" | "Draft" | "Scheduled";
   publishDate: string;
   readTime: string;
