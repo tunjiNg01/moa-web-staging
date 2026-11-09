@@ -13,6 +13,7 @@ import {
   Trash2,
   MoveUp,
   MoveDown,
+  ZoomIn,
 } from "lucide-react";
 import { Button, Input, Label, Badge } from "@repo/ui";
 
@@ -40,6 +41,7 @@ export function ImageUploader({
 }: ImageUploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [previewLargeUrl, setPreviewLargeUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const processFiles = (fileList: FileList | File[]) => {
@@ -225,15 +227,22 @@ export function ImageUploader({
                 }`}
               >
                 <div className="flex items-start gap-3">
-                  {/* Thumbnail */}
-                  <div className="relative size-16 sm:size-20 shrink-0 rounded-xs overflow-hidden border border-border bg-muted/60">
+                  {/* Thumbnail with Click to Expand */}
+                  <div
+                    onClick={() => setPreviewLargeUrl(item.url)}
+                    className="relative size-16 sm:size-20 shrink-0 rounded-xs overflow-hidden border border-border bg-muted/60 cursor-pointer group/thumb"
+                    title="Click to view full-size photograph"
+                  >
                     <img
                       src={item.url}
                       alt={item.altText || item.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform group-hover/thumb:scale-105"
                     />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity text-white">
+                      <ZoomIn className="size-4 drop-shadow-sm" />
+                    </div>
                     {item.isHero && (
-                      <span className="absolute top-1 left-1 bg-primary text-white text-[9px] font-bold px-1 py-0.2 rounded-xs shadow-xs">
+                      <span className="absolute top-1 left-1 bg-primary text-white text-[9px] font-bold px-1 py-0.2 rounded-xs shadow-xs z-10">
                         Hero
                       </span>
                     )}
@@ -305,6 +314,34 @@ export function ImageUploader({
           </div>
         )}
       </div>
+
+      {/* Quick Full-Size Lightbox Overlay */}
+      {previewLargeUrl && (
+        <div
+          role="dialog"
+          onClick={() => setPreviewLargeUrl(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8 backdrop-blur-sm animate-in fade-in-0 duration-200"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl max-h-[85vh] flex items-center justify-center overflow-hidden rounded-xs border border-white/10 shadow-2xl bg-black/40"
+          >
+            <button
+              type="button"
+              onClick={() => setPreviewLargeUrl(null)}
+              className="absolute top-3 right-3 p-1.5 rounded-full bg-black/70 text-white hover:bg-black/90 transition-colors z-10"
+              title="Close full-size preview"
+            >
+              <X className="size-4" />
+            </button>
+            <img
+              src={previewLargeUrl}
+              alt="Full size preview"
+              className="max-h-[80vh] w-auto max-w-full object-contain"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -23,6 +23,8 @@ import {
   Clock,
   Shield,
   UploadCloud,
+  Maximize2,
+  ZoomIn,
 } from "lucide-react";
 import {
   Button,
@@ -40,6 +42,7 @@ import {
 } from "@/lib/admin-data";
 import { ProjectFormSheet } from "@/components/project-form-sheet";
 import { FieldUpdateLinkModal } from "@/components/field-update-link-modal";
+import { ImageLightboxModal } from "@/components/image-lightbox-modal";
 
 interface ProjectDetailPageProps {
   params: Promise<{ id: string }>;
@@ -72,6 +75,16 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [activeLightboxIndex, setActiveLightboxIndex] = useState(0);
+
+  const handleOpenLightbox = (id: string) => {
+    const idx = mediaItems.findIndex((item) => item.id === id);
+    if (idx !== -1) {
+      setActiveLightboxIndex(idx);
+      setIsLightboxOpen(true);
+    }
+  };
 
   // Filter logic
   const filteredMedia = mediaItems.filter((item) => {
@@ -432,20 +445,32 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     : "border-border opacity-90 hover:opacity-100"
                 }`}
               >
-                {/* Image Container with Select Overlay */}
-                <div className="relative aspect-video w-full bg-muted overflow-hidden">
+                {/* Image Container with Select Overlay & Click-to-Zoom */}
+                <div
+                  onClick={() => handleOpenLightbox(item.id)}
+                  className="relative aspect-video w-full bg-muted overflow-hidden cursor-pointer"
+                  title="Click to view full-size photograph"
+                >
                   <img
                     src={item.url}
                     alt={item.title || "Project visual"}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
 
+                  {/* Centered Hover Zoom Icon */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none bg-black/25">
+                    <div className="size-9 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-xs shadow-md transform scale-90 group-hover:scale-100 transition-transform">
+                      <ZoomIn className="size-4" />
+                    </div>
+                  </div>
+
                   {/* Top Overlay Badges & Checkbox */}
-                  <div className="absolute inset-x-0 top-0 p-2.5 flex items-start justify-between bg-gradient-to-b from-black/60 to-transparent">
+                  <div className="absolute inset-x-0 top-0 p-2.5 flex items-start justify-between bg-gradient-to-b from-black/60 to-transparent z-10">
                     {/* Multi-select Checkbox */}
                     <input
                       type="checkbox"
                       checked={selectedIds.includes(item.id)}
+                      onClick={(e) => e.stopPropagation()}
                       onChange={() => toggleSelect(item.id)}
                       className="size-4 rounded-xs accent-primary cursor-pointer shadow-xs"
                       title="Select for bulk action"
@@ -473,7 +498,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
                   {/* Stage Tag Overlay */}
                   {item.stage && (
-                    <div className="absolute bottom-2 left-2">
+                    <div className="absolute bottom-2 left-2 z-10">
                       <span className="px-1.5 py-0.5 rounded-xs bg-background/90 text-foreground text-[10px] font-mono shadow-xs backdrop-blur-xs">
                         {item.stage}
                       </span>
@@ -542,6 +567,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       <Button
                         variant="ghost"
                         size="sm"
+                        onClick={() => handleOpenLightbox(item.id)}
+                        className="h-6 px-1.5 text-[10px] text-muted-foreground hover:text-foreground gap-1"
+                        title="View photograph in full-size lightbox"
+                      >
+                        <Maximize2 className="size-3" />
+                        <span>Zoom</span>
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         onClick={() => handleDeleteMedia(item.id)}
                         className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
                         title="Remove image"
@@ -570,6 +606,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         open={isLinkModalOpen}
         onOpenChange={setIsLinkModalOpen}
         project={project}
+      />
+
+      {/* High-Resolution Fullscreen Image Lightbox Modal */}
+      <ImageLightboxModal
+        open={isLightboxOpen}
+        onOpenChange={setIsLightboxOpen}
+        mediaItems={mediaItems}
+        currentIndex={activeLightboxIndex}
+        onNavigate={setActiveLightboxIndex}
+        onTogglePublish={handleTogglePublish}
+        onSetHero={handleSetHero}
       />
     </div>
   );
