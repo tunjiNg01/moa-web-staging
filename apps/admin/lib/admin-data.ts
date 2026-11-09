@@ -26,6 +26,7 @@ export interface AdminProject {
   title: string;
   category: "Commercial" | "Public & cultural" | "Residential";
   image: string;
+  galleryImages?: string[];
   description: string;
   status: "Published" | "Draft" | "Archived";
   caseStudy: {

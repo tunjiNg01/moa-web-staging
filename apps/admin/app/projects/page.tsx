@@ -14,6 +14,9 @@ import {
   Clock,
   Layers,
   Sparkles,
+  Copy,
+  Trash2,
+  ArrowUpDown,
 } from "lucide-react";
 import {
   Button,
@@ -25,13 +28,53 @@ import {
   DropdownMenuTrigger,
 } from "@repo/ui";
 import { initialProjects, type AdminProject } from "@/lib/admin-data";
+import { ProjectFormSheet } from "@/components/project-form-sheet";
 
 export default function ProjectsAdminPage() {
   const [projects, setProjects] = useState<AdminProject[]>(initialProjects);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingProject, setEditingProject] = useState<AdminProject | null>(null);
 
   const categories = ["All", "Commercial", "Public & cultural", "Residential"];
+
+  const handleSaveProject = (savedProject: AdminProject) => {
+    setProjects((prev) => {
+      const exists = prev.some((p) => p.id === savedProject.id);
+      if (exists) {
+        return prev.map((p) => (p.id === savedProject.id ? savedProject : p));
+      }
+      return [savedProject, ...prev];
+    });
+  };
+
+  const handleToggleStatus = (id: string) => {
+    setProjects((prev) =>
+      prev.map((p) => {
+        if (p.id === id) {
+          const newStatus = p.status === "Published" ? "Draft" : "Published";
+          return { ...p, status: newStatus, updatedAt: new Date().toISOString().slice(0, 10) };
+        }
+        return p;
+      })
+    );
+  };
+
+  const handleDuplicateProject = (project: AdminProject) => {
+    const duplicated: AdminProject = {
+      ...project,
+      id: `proj_${Date.now()}`,
+      title: `${project.title} (Copy)`,
+      status: "Draft",
+      updatedAt: new Date().toISOString().slice(0, 10),
+    };
+    setProjects((prev) => [duplicated, ...prev]);
+  };
+
+  const handleDeleteProject = (id: string) => {
+    setProjects((prev) => prev.filter((p) => p.id !== id));
+  };
 
   const filteredProjects = projects.filter((project) => {
     const matchesCategory =
@@ -64,7 +107,14 @@ export default function ProjectsAdminPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button size="sm" className="h-9 gap-2 text-xs rounded-xs">
+          <Button
+            size="sm"
+            className="h-9 gap-2 text-xs rounded-xs"
+            onClick={() => {
+              setEditingProject(null);
+              setIsFormOpen(true);
+            }}
+          >
             <Plus className="size-4" />
             <span>Create New Project</span>
           </Button>
@@ -131,8 +181,16 @@ export default function ProjectsAdminPage() {
                   >
                     <td className="py-4 px-4 font-medium">
                       <div className="flex items-center gap-3">
-                        <div className="size-9 rounded-xs bg-muted border border-border flex items-center justify-center shrink-0 text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors">
-                          <Building2 className="size-4" />
+                        <div className="size-10 rounded-xs bg-muted border border-border overflow-hidden flex items-center justify-center shrink-0 text-muted-foreground group-hover:border-primary/40 transition-colors">
+                          {project.image ? (
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Building2 className="size-4" />
+                          )}
                         </div>
                         <div>
                           <div className="font-semibold text-foreground text-sm font-serif">
@@ -197,10 +255,52 @@ export default function ProjectsAdminPage() {
                           variant="outline"
                           size="sm"
                           className="h-7 text-xs px-2.5 rounded-xs gap-1"
+                          onClick={() => {
+                            setEditingProject(project);
+                            setIsFormOpen(true);
+                          }}
                         >
                           <Edit3 className="size-3" />
                           <span>Edit</span>
                         </Button>
+
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="size-7 p-0 rounded-xs text-muted-foreground hover:text-foreground"
+                            >
+                              <MoreVertical className="size-3.5" />
+                              <span className="sr-only">Project actions</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="w-44 text-xs">
+                            <DropdownMenuItem
+                              onClick={() => handleToggleStatus(project.id)}
+                              className="gap-2 cursor-pointer"
+                            >
+                              <ArrowUpDown className="size-3.5 text-muted-foreground" />
+                              <span>
+                                {project.status === "Published" ? "Unpublish to Draft" : "Publish Live"}
+                              </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => handleDuplicateProject(project)}
+                              className="gap-2 cursor-pointer"
+                            >
+                              <Copy className="size-3.5 text-muted-foreground" />
+                              <span>Duplicate Case</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => handleDeleteProject(project.id)}
+                              className="gap-2 text-destructive focus:text-destructive cursor-pointer"
+                            >
+                              <Trash2 className="size-3.5" />
+                              <span>Delete Record</span>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </div>
                     </td>
                   </tr>
@@ -210,6 +310,14 @@ export default function ProjectsAdminPage() {
           </table>
         </div>
       </div>
+
+      {/* Project Creation & Editing Slide-over Sheet */}
+      <ProjectFormSheet
+        open={isFormOpen}
+        onOpenChange={setIsFormOpen}
+        project={editingProject}
+        onSave={handleSaveProject}
+      />
     </div>
   );
 }

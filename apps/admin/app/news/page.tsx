@@ -19,13 +19,26 @@ import {
   Input,
 } from "@repo/ui";
 import { initialNewsArticles, type AdminNewsArticle } from "@/lib/admin-data";
+import { ArticleFormSheet } from "@/components/article-form-sheet";
 
 export default function NewsAdminPage() {
   const [articles, setArticles] = useState<AdminNewsArticle[]>(initialNewsArticles);
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingArticle, setEditingArticle] = useState<AdminNewsArticle | null>(null);
 
   const statuses = ["All", "Published", "Scheduled", "Draft"];
+
+  const handleSaveArticle = (savedArticle: AdminNewsArticle) => {
+    setArticles((prev) => {
+      const exists = prev.some((a) => a.id === savedArticle.id);
+      if (exists) {
+        return prev.map((a) => (a.id === savedArticle.id ? savedArticle : a));
+      }
+      return [savedArticle, ...prev];
+    });
+  };
 
   const filteredArticles = articles.filter((article) => {
     const matchesStatus =
@@ -58,7 +71,14 @@ export default function NewsAdminPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button size="sm" className="h-9 gap-2 text-xs rounded-xs">
+          <Button
+            size="sm"
+            className="h-9 gap-2 text-xs rounded-xs"
+            onClick={() => {
+              setEditingArticle(null);
+              setIsFormOpen(true);
+            }}
+          >
             <Plus className="size-4" />
             <span>Draft New Article</span>
           </Button>
@@ -124,8 +144,16 @@ export default function NewsAdminPage() {
                   >
                     <td className="py-4 px-4 font-medium max-w-md">
                       <div className="flex items-start gap-3">
-                        <div className="size-9 rounded-xs bg-muted border border-border flex items-center justify-center shrink-0 text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors mt-0.5">
-                          <Newspaper className="size-4" />
+                        <div className="size-10 rounded-xs bg-muted border border-border overflow-hidden flex items-center justify-center shrink-0 text-muted-foreground group-hover:border-primary/40 transition-colors mt-0.5">
+                          {article.image ? (
+                            <img
+                              src={article.image}
+                              alt={article.title}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Newspaper className="size-4" />
+                          )}
                         </div>
                         <div>
                           <div className="font-semibold text-foreground text-sm font-serif line-clamp-1">
@@ -209,6 +237,10 @@ export default function NewsAdminPage() {
                           variant="outline"
                           size="sm"
                           className="h-7 text-xs px-2.5 rounded-xs gap-1"
+                          onClick={() => {
+                            setEditingArticle(article);
+                            setIsFormOpen(true);
+                          }}
                         >
                           <Edit3 className="size-3" />
                           <span>Edit</span>
@@ -222,6 +254,14 @@ export default function NewsAdminPage() {
           </table>
         </div>
       </div>
+
+      {/* Editorial Article Drawer */}
+      <ArticleFormSheet
+        open={isFormOpen}
+        onOpenChange={setIsFormOpen}
+        article={editingArticle}
+        onSave={handleSaveArticle}
+      />
     </div>
   );
 }
